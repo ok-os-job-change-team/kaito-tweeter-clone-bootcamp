@@ -1,0 +1,12 @@
+version: '3.7'  # Docker Composeのバージョン指定
+
+services:       # セクション名
+  app:
+    image: ruby:3.2
+    container_name: web_app
+    volumes:    # ファイルを共有する設定(ホストマシン:コンテナ)
+      - .:/app
+    ports:      # ホストマシンのポート3000をコンテナのポート3000にマッピングする設定
+      - 3000:3000
+    tty: true   # コンテナの起動時にttyを有効化する設定
+    working_dir: /app
