@@ -1,2 +1,2 @@
-# kaito-tweeter-clone-bootcamp
-Tweeter Cloneを作成するリポジトリです
+# kaito-twitter-clone-bootcamp
+Twitter Cloneを作成するリポジトリです
