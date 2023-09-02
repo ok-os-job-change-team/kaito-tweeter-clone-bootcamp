@@ -1,12 +1,31 @@
 version: '3.7'  # Docker Composeのバージョン指定
 
-services:       # セクション名
+services:       # サービス名
   app:
-    image: ruby:3.2
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: web_app
-    volumes:    # ファイルを共有する設定(ホストマシン:コンテナ)
+    volumes:
       - .:/app
-    ports:      # ホストマシンのポート3000をコンテナのポート3000にマッピングする設定
-      - 3000:3000
-    tty: true   # コンテナの起動時にttyを有効化する設定
+    ports:
+      - "3000:3000"
+    tty: true
+    depends_on:
+      - database
     working_dir: /app
+    command: "rails s -b 0.0.0.0"
+  database:
+    image: mysql:8.0.34
+    platform: linux/amd64
+    container_name: database
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports: # 他のコンテナからmysqlクライアントを用いてアクセスしたい場合は、portを公開する必要あり
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./mysql-data:/var/lib/mysql # DBデータの保存領域
+      - ./sql:/usr/scripts # 実行したいSQLを保管しておく場所
