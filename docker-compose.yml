@@ -1,6 +1,6 @@
-version: '3.7'  # Docker Composeのバージョン指定
+version: '3.7'
 
-services:       # サービス名
+services:
   app:
     build:
       context: .
@@ -20,12 +20,12 @@ services:       # サービス名
     platform: linux/amd64
     container_name: database
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    ports: # 他のコンテナからmysqlクライアントを用いてアクセスしたい場合は、portを公開する必要あり
+    ports:
       - "3308:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: demo
       TZ: "Asia/Tokyo"
     volumes:
-      - ./mysql-data:/var/lib/mysql # DBデータの保存領域
-      - ./sql:/usr/scripts # 実行したいSQLを保管しておく場所
+      - ./mysql-data:/var/lib/mysql
+      - ./sql:/usr/scripts
