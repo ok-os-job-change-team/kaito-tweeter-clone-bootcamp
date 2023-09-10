@@ -71,4 +71,5 @@ group :test do
   gem "webdrivers"
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem "rails-i18n", "~> 7.0.7"
 end
