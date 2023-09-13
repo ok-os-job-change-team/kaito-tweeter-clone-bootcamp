@@ -11,15 +11,28 @@ RSpec.describe User do
     context 'emailが空文字の場合' do
       let(:user) { build(:user, email: '') }
 
-      it 'valid?がfalseになる' do
-        expect(user.valid?).to eq false
-      end
+      # it 'valid?がfalseになる' do
+      #   expect(user.valid?).to eq false
+      # end
 
-      it 'errorsに「メールアドレスを入力してください」と格納される' do
-        user.valid?
-        expect(user.errors.full_messages).to include('メールアドレスを入力してください')
+      # it 'errorsに「メールアドレスを入力してください」と格納される' do
+      #   user.valid?
+      #   expect(user.errors.full_messages).to include('メールアドレスを入力してください')
+      # end
+
+      it 'valid?がfalseになる' do
+        aggregate_failures do
+          result = user.valid?
+          
+          binding.irb
+
+          expect(result).to eq false
+          expect(user.errors.full_messages).to include('メールアドレスを入力してください')
+        end
       end
     end
+
+
 
     context 'emailがnilの場合' do
       let(:user) { build(:user, email: nil) }
@@ -38,6 +51,8 @@ RSpec.describe User do
       let(:user) { build(:user, password: 'hogehoge') }
 
       it 'valid?がtrueになる' do
+        binding.irb
+
         expect(user.valid?).to eq true
       end
     end

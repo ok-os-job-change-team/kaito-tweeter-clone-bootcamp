@@ -12,7 +12,8 @@ end
 ```
 
 ## 2.バリデーションを手動で実行する方法
-- RailsはActiveRecordオブジェクトを保存する直前にバリデーションを実行する
+- Railsでは、レコードを保存する直前にバリデーションを実行することができる。
+  - ActiveRecord::Baseを継承したメソッドでは、レコードを保存する前に自動的にバリデーションが実行される。
 - 例えば、以下のメソッドではバリデーションが実行される
   - create, create!
   - save, save!
@@ -20,7 +21,7 @@ end
 - 手動でバリデーションを実行するには`valid?`メソッドを使う
   - `valid?`メソッドを実行すると、バリデーションに通ればtrueを返し、引っかかればfalseを返す。
 
-## 3.エラーメッセージの取得
+## 3.エラーの情報を取得する
 ### errors
 - バリデーション実行後に`errors`メソッドを使うことで、発生したエラーメッセージを取得できる
 - `errors`メソッドはエラーメッセージをハッシュで取得するコマンドである
@@ -32,6 +33,7 @@ end
   irb(main):012> user.valid?
   => false
 
+  # user.errorsを実行するとエラーを含むActiveModel::Errorクラスのインスタンスを1つ返す
   irb(main):013> user.errors
   => #<ActiveModel::Errors [#<ActiveModel::Error attribute=email, type=blank, options={}>, #<ActiveModel::Error attribute=password, type=blank, options={}>]>
   ```
