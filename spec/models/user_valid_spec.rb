@@ -11,39 +11,24 @@ RSpec.describe User do
     context 'emailが空文字の場合' do
       let(:user) { build(:user, email: '') }
 
-      # it 'valid?がfalseになる' do
-      #   expect(user.valid?).to eq false
-      # end
-
-      # it 'errorsに「メールアドレスを入力してください」と格納される' do
-      #   user.valid?
-      #   expect(user.errors.full_messages).to include('メールアドレスを入力してください')
-      # end
-
-      it 'valid?がfalseになる' do
+      it 'valid?がfalseになり、errorsに「メールアドレスを入力してください」と格納される' do
         aggregate_failures do
           result = user.valid?
-          
-          binding.irb
-
           expect(result).to eq false
           expect(user.errors.full_messages).to include('メールアドレスを入力してください')
         end
       end
     end
 
-
-
     context 'emailがnilの場合' do
       let(:user) { build(:user, email: nil) }
 
-      it 'valid?がfalseになる' do
-        expect(user.valid?).to eq false
-      end
-
-      it 'errorsに「メールアドレスを入力してください」と格納される' do
-        user.valid?
-        expect(user.errors.full_messages).to include('メールアドレスを入力してください')
+      it 'valid?がfalseになり、errorsに「メールアドレスを入力してください」と格納される' do
+        aggregate_failures do
+          result = user.valid?
+          expect(result).to eq false
+          expect(user.errors.full_messages).to include('メールアドレスを入力してください')
+        end
       end
     end
 
@@ -51,8 +36,6 @@ RSpec.describe User do
       let(:user) { build(:user, password: 'hogehoge') }
 
       it 'valid?がtrueになる' do
-        binding.irb
-
         expect(user.valid?).to eq true
       end
     end
@@ -60,26 +43,24 @@ RSpec.describe User do
     context 'passwordが空文字の場合' do
       let(:user) { build(:user, password: '') }
 
-      it 'valid?がfalseになる' do
-        expect(user.valid?).to eq false
-      end
-
-      it 'errorsに「パスワードを入力してください」と格納される' do
-        user.valid?
-        expect(user.errors.full_messages).to include("パスワードを入力してください")
+      it 'valid?がfalseになり、errorsに「パスワードを入力してください」と格納される' do
+        aggregate_failures do
+          result = user.valid?
+          expect(result).to eq false
+          expect(user.errors.full_messages).to include('パスワードを入力してください')
+        end
       end
     end
 
     context 'passwordがnilの場合' do
       let(:user) { build(:user, password: nil) }
 
-      it 'valid?がfalseになる' do
-        expect(user.valid?).to eq false
-      end
-
-      it 'errorsに「パスワードを入力してください」と格納される' do
-        user.valid?
-        expect(user.errors.full_messages).to include("パスワードを入力してください")
+      it 'valid?がfalseになり、errorsに「パスワードを入力してください」と格納される' do
+        aggregate_failures do
+          result = user.valid?
+          expect(result).to eq false
+          expect(user.errors.full_messages).to include('パスワードを入力してください')
+        end
       end
     end
   end
