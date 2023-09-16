@@ -15,7 +15,7 @@ RSpec.describe User do
         aggregate_failures do
           result = user.valid?
           expect(result).to eq false
-          expect(user.errors.full_messages).to include('メールアドレスを入力してください')
+          expect(user.errors.full_messages).to eq ['メールアドレスを入力してください']
         end
       end
     end
@@ -27,7 +27,7 @@ RSpec.describe User do
         aggregate_failures do
           result = user.valid?
           expect(result).to eq false
-          expect(user.errors.full_messages).to include('メールアドレスを入力してください')
+          expect(user.errors.full_messages).to eq ['メールアドレスを入力してください']
         end
       end
     end
@@ -47,7 +47,7 @@ RSpec.describe User do
         aggregate_failures do
           result = user.valid?
           expect(result).to eq false
-          expect(user.errors.full_messages).to include('パスワードを入力してください')
+          expect(user.errors.full_messages).to eq ['パスワードを入力してください']
         end
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe User do
         aggregate_failures do
           result = user.valid?
           expect(result).to eq false
-          expect(user.errors.full_messages).to include('パスワードを入力してください')
+          expect(user.errors.full_messages).to eq ['パスワードを入力してください']
         end
       end
     end
