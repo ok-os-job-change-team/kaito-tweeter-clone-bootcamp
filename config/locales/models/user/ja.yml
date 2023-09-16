@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+  errors:
+    models:
+      user:
+        blank: を入力してください
