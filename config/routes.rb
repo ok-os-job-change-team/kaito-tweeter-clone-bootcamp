@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  get 'index' => 'users#index'
-  get 'show/:id' => 'users#show'
+  # get 'index' => 'users#index'
+  resources :users, only: [:show, :index]
 end
