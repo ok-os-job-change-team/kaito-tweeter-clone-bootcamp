@@ -2,31 +2,28 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
   describe 'GET /users' do
-    before do
-      FactoryBot.create :takashi
-      FactoryBot.create :satoshi
-    end
+    let!(:user) { create(:user, email:'miotyan@example.com') }
+    let!(:another_user) { create(:user, email:'yukko@example.com') }
 
     it 'リクエストが成功し、ユーザー名が表示されること' do
       aggregate_failures do
         get users_path
         expect(response.status).to eq 200
-        expect(response.body).to include 'takashi@example.com'
-        expect(response.body).to include 'satoshi@example.com'
+        expect(response.body).to include user.email
+        expect(response.body).to include another_user.email
       end
     end
   end
 
   describe 'GET /users/:id' do
     context 'ユーザーが存在する場合' do
-      let(:takashi) { FactoryBot.create :takashi }
+      let(:user) { create(:user) }
 
-      it 'リクエストが成功し、ユーザー名とパスワードが表示されること' do
+      it 'リクエストが成功し、ユーザー名が表示されること' do
         aggregate_failures do
-          get user_path(takashi)
+          get user_path(user)
           expect(response.status).to eq 200
-          expect(response.body).to include 'takashi@example.com'
-          expect(response.body).to include 'hoge_takashi'
+          expect(response.body).to include 'sample@example.com'
         end
       end
     end
