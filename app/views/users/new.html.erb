@@ -1,0 +1,17 @@
+<h1>新規ユーザー登録</h1>
+<table>
+  <%= form_for(@user, url:{controller:'users', action:'create'}) do |form| %>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= form.text_field :email %></td>
+  </tr>
+  <tr>
+    <th>パスワード</th>
+    <td><%= form.text_field :password %></td>
+  </tr>
+  <tr>
+    <th></th>
+    <td><%= form.submit '送信' %></td>
+  </tr>
+  <% end %>
+</table>
