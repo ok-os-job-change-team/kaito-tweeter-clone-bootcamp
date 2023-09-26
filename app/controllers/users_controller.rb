@@ -20,8 +20,6 @@ class UsersController < ApplicationController
     else
       flash.now[:alert] = '登録に失敗しました'
       render :new
-      flash.now[:alert] = '登録に失敗しました'
-
     end
   end
 
