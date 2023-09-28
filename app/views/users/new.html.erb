@@ -1,24 +1,29 @@
 <h1>新規ユーザー登録</h1>
 
-<table>
-  <%= form_with model: @user, url: users_path, local: true do |form| %>
-  <tr>
-    <th>メールアドレス</th>
-    <td><%= form.text_field :email %></td>
-  </tr>
-  <tr>
-    <th>パスワード</th>
-    <td><%= form.text_field :password %></td>
-  </tr>
-  <tr>
-    <th></th>
-    <td><%= form.submit '送信' %></td>
-  </tr>
-  <tr>
-    <th></th>
-    <td><%= render 'alert' %></td>
-  </tr>
-  <% end %>
-</table>
+<%= form_with model: @user, url: users_path, local: true, data: { turbo: "false" } do |form| %>
 
+  <div>
+    <h3>
+      <%= flash[:alert] %> 
+    </h3>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
 
+  <table>
+    <tr>
+      <th>メールアドレス</th>
+      <td><%= form.text_field :email %></td>
+    </tr>
+    <tr>
+      <th>パスワード</th>
+      <td><%= form.text_field :password %></td>
+    </tr>
+    <tr>
+      <td><%= form.submit '送信' %></td>
+    </tr>
+  </table>
+<% end %>
