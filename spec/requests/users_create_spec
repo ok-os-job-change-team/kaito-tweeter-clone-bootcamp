@@ -5,14 +5,49 @@ RSpec.describe UsersController, type: :request do
     context 'emailとpasswordが入力されている場合' do
       it 'ユーザー登録に成功すること' do
         expect{
-          post users_path, params: { user: { email: 'hakase@example.com', password: 'sample_password' } }
+          post users_path, params: { user: { email: 'sample@example.com', password: 'sample_password' } }
         }.to change(User, :count).by(1)
       end
     end
 
-    # context 'emailが空文字の場合' do
-    #   it 'ユーザー登録に失敗すること' do
-    #   end
-    # end
+    context 'emailが空文字の場合' do
+      it 'ユーザー登録に失敗すること' do
+        post users_path, params: { user: { email: '', password: 'sample_password' } }
+        aggregate_failures do
+          expect(response.body).to include '登録に失敗しました'
+          expect(response.body).to include 'メールアドレスを入力してください'
+        end
+      end
+    end
+
+    context 'emailがnilの場合' do
+      it 'ユーザー登録に失敗すること' do
+        post users_path, params: { user: { email: nil, password: 'sample_password' } }
+        aggregate_failures do
+          expect(response.body).to include '登録に失敗しました'
+          expect(response.body).to include 'メールアドレスを入力してください'
+        end
+      end
+    end
+
+    context 'passwordが空文字の場合' do
+      it 'ユーザー登録に失敗すること' do
+        post users_path, params: { user: { email: 'saple@example.com', password: '' } }
+        aggregate_failures do
+          expect(response.body).to include '登録に失敗しました'
+          expect(response.body).to include 'パスワードを入力してください'
+        end
+      end
+    end
+
+    context 'passwordがnilの場合' do
+      it 'ユーザー登録に失敗すること' do
+        post users_path, params: { user: { email: 'saple@example.com', password: nil } }
+        aggregate_failures do
+          expect(response.body).to include '登録に失敗しました'
+          expect(response.body).to include 'パスワードを入力してください'
+        end
+      end
+    end
   end
 end
