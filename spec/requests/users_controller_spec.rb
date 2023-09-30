@@ -39,7 +39,6 @@ RSpec.describe UsersController, type: :request do
         expect{
           post users_path, params: { user: { email: 'sample@example.com', password: 'sample_password' } }
         }.to change(User, :count).by(1)
-        binding.irb
       end
     end
 
