@@ -5,10 +5,5 @@ ja:
         email: メールアドレス
         password: パスワード
     errors:
-      models:
-        user:
-          attributes:
-            email: 
-              blank: を入力してください
-            password: 
-              blank: を入力してください
+      messages:
+        blank: を入力してください
