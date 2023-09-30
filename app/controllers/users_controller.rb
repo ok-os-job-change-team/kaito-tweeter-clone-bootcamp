@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   end
 
   private
+  
   def user_params
     params.require(:user).permit(:email, :password)
     # require(:user)はuser内に指定の値が存在するかチェック
