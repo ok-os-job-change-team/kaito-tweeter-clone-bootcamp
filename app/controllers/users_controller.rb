@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :password)
     # require(:user)はuser内に指定の値が存在するかチェック
     # permit(:email, :password)はemailとpasswordがあるかチェック
-    # つまり、user内にemailとpasswordがあるかどうかを確認している
+    # 結果として、user内にあるemailとpasswordだけを取得
   end
 end
 
