@@ -4,7 +4,6 @@ ja:
       user:
         email: メールアドレス
         password: パスワード
-  errors:
-    models:
-      user:
+    errors:
+      messages:
         blank: を入力してください

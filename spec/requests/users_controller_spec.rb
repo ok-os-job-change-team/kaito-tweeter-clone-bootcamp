@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe UsersController, type: :request do
   describe 'GET /users' do
     let!(:user) { create(:user, email:'miotyan@example.com') }
@@ -31,6 +29,24 @@ RSpec.describe UsersController, type: :request do
     context 'ユーザーが存在しない場合' do
       it 'リクエストに失敗すること' do
         expect { get user_path(0) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
+  describe 'POST /users/new' do
+    context 'ユーザーの作成が正常に実行される場合' do
+      it 'ユーザー登録に成功すること' do
+        expect{
+          post users_path, params: { user: { email: 'sample@example.com', password: 'sample_password' } }
+        }.to change(User, :count).by(1)
+      end
+    end
+
+    context 'ユーザーの作成に失敗し、バリデーションエラーとなる場合' do
+      it 'ユーザー登録に失敗すること' do
+        expect{
+          post users_path, params: { user: { email: '', password: '' } }
+        }.to change(User, :count).by(0)
       end
     end
   end
