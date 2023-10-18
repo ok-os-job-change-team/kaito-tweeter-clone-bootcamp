@@ -54,10 +54,17 @@ RSpec.describe UsersController, type: :request do
   describe 'DELETE /users' do
     context '存在するユーザーを削除する場合' do
       let!(:user) { create(:user) }
-      it 'ユーザーが削除されること' do
+      it 'ユーザー削除に成功すること' do
         expect{
           delete user_path(user.id)
         }.to change(User, :count).by(-1)
+      end
+    end
+    context '存在しないユーザーを削除する場合' do
+      it 'ユーザー削除に失敗すること' do
+        expect{
+          delete user_path(0)
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
