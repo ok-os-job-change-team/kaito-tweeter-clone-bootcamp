@@ -60,6 +60,7 @@ RSpec.describe UsersController, type: :request do
         }.to change(User, :count).by(-1)
       end
     end
+    
     context '存在しないユーザーを削除する場合' do
       it 'ユーザー削除に失敗すること' do
         expect{
