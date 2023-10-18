@@ -23,6 +23,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      flash[:notice] = '削除しました'
+      redirect_to '/users'
+    else
+      flash.now[:alert] = '削除に失敗しました'
+      redirect_to '/users'
+    end
+  end  
+
   private
   
   def user_params
@@ -32,5 +43,3 @@ class UsersController < ApplicationController
     # 結果として、user内にあるemailとpasswordだけを取得
   end
 end
-
-

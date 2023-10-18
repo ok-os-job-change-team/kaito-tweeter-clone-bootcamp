@@ -5,6 +5,7 @@
 <% @users.each do |user| %>
   <h3>ユーザー名</h3>
   <span><%= user.email %></span>
+  <%= button_to "ユーザー削除", user_path(user.id), method: :delete %>
 <% end %>
 
 <div class="text-notice">
