@@ -69,4 +69,25 @@ RSpec.describe UsersController, type: :request do
       end
     end
   end
+
+  describe 'PUT /users' do
+    context 'プロフィールの変更が正常に実行された場合' do
+      let!(:user) { create(:user) }
+      it 'プロフィールの変更に成功すること' do
+        put user_path(user.id), params: { user: { email: 'new_sample@example.com', password: 'new_sample_password' } }
+        expect(user.reload.email).to eq 'new_sample@example.com'
+        expect(user.reload.password).to eq 'new_sample_password'
+      end
+    end
+    
+    context 'プロフィールの変更に失敗し、バリデーションエラーとなる場合' do
+      let!(:user) { create(:user) }
+      it 'プロフィールの変更に失敗すること' do
+        put user_path(user.id), params: { user: { email: '', password: '' } }
+        expect(user.reload.email).to eq 'sample@example.com'
+        expect(user.reload.password).to eq 'sample_password'
+        expect(response.body).to include '変更に失敗しました'
+      end
+    end
+  end
 end
