@@ -32,7 +32,22 @@ class UsersController < ApplicationController
       flash.now[:alert] = '削除に失敗しました'
       redirect_to '/users'
     end
-  end  
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:notice] = '変更に成功しました'
+      redirect_to '/users'
+    else
+      flash.now[:alert] = '変更に失敗しました'
+      render :edit
+    end
+  end
 
   private
   
