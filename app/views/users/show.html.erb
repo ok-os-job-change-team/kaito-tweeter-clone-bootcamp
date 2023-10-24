@@ -6,3 +6,4 @@
 <p><%= @user.created_at %></p>
 <h3>アカウント更新日</h3>
 <p><%= @user.updated_at %></p>
+<%= button_to "ユーザー編集", edit_user_path(@user.id), method: :get %>
