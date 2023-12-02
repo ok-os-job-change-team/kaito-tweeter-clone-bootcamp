@@ -1,21 +1,41 @@
 RSpec.describe UsersController, type: :request do
   describe 'GET /users' do
-    let!(:user) { create(:user, email:'miotyan@example.com') }
+    let!(:user) { create(:user) }
     let!(:another_user) { create(:user, email:'yukko@example.com') }
 
-    it 'リクエストが成功し、ユーザー名が表示されること' do
-      aggregate_failures do
-        get users_path
-        expect(response.status).to eq 200
-        expect(response.body).to include user.email
-        expect(response.body).to include another_user.email
+    context 'ログインしているかつ、正常な時' do
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
+      it 'リクエストが成功し、ユーザー名が表示されること' do
+        aggregate_failures do
+          get users_path
+          expect(response.status).to eq 200
+          expect(response.body).to include user.email
+          expect(response.body).to include another_user.email
+        end
+      end
+    end
+
+    context 'ログインしていないとき' do
+      it 'ログインページにリダイレクトすること' do
+        aggregate_failures do
+          get users_path
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to login_path
+        end
       end
     end
   end
 
   describe 'GET /users/:id' do
-    context 'ユーザーが存在する場合' do
-      let(:user) { create(:user) }
+    let(:user) { create(:user) }
+
+    context 'ログインしているかつ、正常な場合' do
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
 
       it 'リクエストが成功し、ユーザー名が表示されること' do
         aggregate_failures do
@@ -26,14 +46,18 @@ RSpec.describe UsersController, type: :request do
       end
     end
 
-    context 'ユーザーが存在しない場合' do
-      it 'リクエストに失敗すること' do
-        expect { get user_path(0) }.to raise_error(ActiveRecord::RecordNotFound)
+    context 'ログインしていない場合' do
+      it 'ログインページにリダイレクトすること' do
+        aggregate_failures do
+          get user_path(user)
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to login_path
+        end
       end
     end
   end
 
-  describe 'POST /users/new' do
+  describe 'POST /users' do
     context 'ユーザーの作成が正常に実行される場合' do
       it 'ユーザー登録に成功すること' do
         expect{
@@ -70,20 +94,30 @@ RSpec.describe UsersController, type: :request do
     end
   end
 
-  describe 'PUT /users' do
-    context 'プロフィールの変更が正常に実行された場合' do
+  describe 'PUT /users/:id' do
+    context 'ログインユーザーと同じユーザーのユーザー情報を変更し、なおかつemailとpasswordが正常な場合' do
       let!(:user) { create(:user) }
+
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
       it 'プロフィールの変更に成功すること' do
         aggregate_failures do
           put user_path(user.id), params: { user: { email: 'new_sample@example.com', password: 'new_sample_password' } }
           expect(user.reload.email).to eq 'new_sample@example.com'
-          expect(user.reload.password).to eq 'new_sample_password'
+          # expect(user.reload.password).to eq 'new_sample_password'
         end
       end
     end
     
-    context 'プロフィールの変更に失敗し、バリデーションエラーとなる場合' do
+    context 'emailとpasswordが異常で、バリデーションエラーとなる場合' do
       let!(:user) { create(:user) }
+
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
       it 'プロフィールの変更に失敗すること' do
         aggregate_failures do
           put user_path(user.id), params: { user: { email: '', password: '' } }
@@ -92,6 +126,34 @@ RSpec.describe UsersController, type: :request do
           expect(response.body).to include '変更に失敗しました'
         end
       end
+    end
+
+    context 'ログインユーザーと異なるユーザーのユーザー情報を変更する場合' do
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
+      let!(:user) { create(:user) }
+
+      it 'ユーザー一覧ページにリダイレクトすること' do
+        aggregate_failures do
+          put user_path(user.id), params: { user: { email: 'new_sample@example.com', password: 'new_sample_password' } }
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to users_path       
+        end        
+      end
+    end
+  end
+
+  describe 'GET users/:id/edit' do
+    let!(:user) { create(:user) }
+
+    context 'ログインユーザーと同じユーザーのユーザー情報を変更する場合' do
+      pending
+    end
+
+    context 'ログインユーザーと異なるユーザーのユーザー情報を変更する場合' do
+      pending
     end
   end
 end

@@ -7,29 +7,29 @@ RSpec.describe SessionsController, type: :request do
       end
     end
   end
-end
+  
+  describe 'POST /login' do
+    context '有効なemailとpasswordの場合' do
+      let!(:user) { create(:user) }
 
-describe 'POST /login' do
-  context '有効なemailとpasswordの場合' do
-    let!(:user) { create(:user) }
-
-    it 'ログインに成功すること' do
-      aggregate_failures do
-        post login_path, params: { email: user.email, password: 'sample_password' }
-        expect(response).to have_http_status(302)
-        expect(response).to redirect_to(user_path(user.id))
+      it 'ログインに成功すること' do
+        aggregate_failures do
+          post login_path, params: { email: user.email, password: 'sample_password' }
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to(user_path(user.id))
+        end
       end
     end
-  end
 
-  context '無効なemailとpasswordの場合' do
-    let!(:user) { create(:user) }
+    context '無効なemailとpasswordの場合' do
+      let!(:user) { create(:user) }
 
-    it 'ログインに失敗すること' do
-      aggregate_failures do
-        post login_path, params: { email: '', password: '' }
-        expect(response).to have_http_status(200)
-        expect(response.body).to include 'メールアドレスかパスワードが間違っています'
+      it 'ログインに失敗すること' do
+        aggregate_failures do
+          post login_path, params: { email: '', password: '' }
+          expect(response).to have_http_status(200)
+          expect(response.body).to include 'メールアドレスかパスワードが間違っています'
+        end
       end
     end
   end
@@ -40,10 +40,8 @@ describe 'POST /login' do
 
       before do
         post login_path, params: { email: user.email, password: 'sample_password' }
-        expect(response).to have_http_status(302)
-        expect(response).to redirect_to(user_path(user.id))
       end
-  
+
       it 'ログアウトに成功すること' do
         aggregate_failures do
           delete logout_path
