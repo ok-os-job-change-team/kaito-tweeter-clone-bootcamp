@@ -30,7 +30,7 @@ RSpec.describe UsersController, type: :request do
   end
 
   describe 'GET /users/:id' do
-    let(:user) { create(:user) }
+    let!(:user) { create(:user) }
 
     context 'ログインしているかつ、正常な場合' do
       before do
@@ -111,7 +111,7 @@ RSpec.describe UsersController, type: :request do
       end
     end
     
-    context 'emailとpasswordが異常で、バリデーションエラーとなる場合' do
+    context 'ログインユーザーと同じユーザーのユーザー情報を変更し、emailとpasswordが異常で、バリデーションエラーとなる場合' do
       let!(:user) { create(:user) }
 
       before do
@@ -129,13 +129,14 @@ RSpec.describe UsersController, type: :request do
     end
 
     context 'ログインユーザーと異なるユーザーのユーザー情報を変更する場合' do
+      let!(:user) { create(:user) }
+      let!(:another_user) { create(:user, email:'yukko@example.com') }
+
       before do
-        post login_path, params: { email: user.email, password: 'sample_password' }
+        post login_path, params: { email: another_user.email, password: 'sample_password' }
       end
 
-      let!(:user) { create(:user) }
-
-      it 'ユーザー一覧ページにリダイレクトすること' do
+      it 'ページにリダイレクトすること' do
         aggregate_failures do
           put user_path(user.id), params: { user: { email: 'new_sample@example.com', password: 'new_sample_password' } }
           expect(response).to have_http_status(302)
@@ -146,14 +147,37 @@ RSpec.describe UsersController, type: :request do
   end
 
   describe 'GET users/:id/edit' do
-    let!(:user) { create(:user) }
-
     context 'ログインユーザーと同じユーザーのユーザー情報を変更する場合' do
-      pending
+      let!(:user) { create(:user) }
+
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
+      it 'プロフィール編集ページに遷移すること' do
+        aggregate_failures do
+          get edit_user_path(user.id)
+          expect(response.status).to eq 200
+          expect(response.body).to include 'プロフィール編集'
+        end
+      end
     end
 
     context 'ログインユーザーと異なるユーザーのユーザー情報を変更する場合' do
-      pending
+      let!(:user) { create(:user) }
+      let!(:another_user) { create(:user, email:'yukko@example.com') }
+
+      before do
+        post login_path, params: { email: another_user.email, password: 'sample_password' }
+      end
+
+      it 'ユーザーリストページにリダイレクトすること' do
+        aggregate_failures do
+          get edit_user_path(user.id)
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to users_path
+        end
+      end
     end
   end
 end
