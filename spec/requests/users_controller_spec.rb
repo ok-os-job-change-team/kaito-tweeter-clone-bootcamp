@@ -76,20 +76,34 @@ RSpec.describe UsersController, type: :request do
   end
 
   describe 'DELETE /users' do
-    context '存在するユーザーを削除する場合' do
+    context 'ログインユーザーと同じユーザーのユーザー情報を削除する場合' do
       let!(:user) { create(:user) }
+
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
       it 'ユーザー削除に成功すること' do
         expect{
           delete user_path(user.id)
         }.to change(User, :count).by(-1)
       end
     end
-    
-    context '存在しないユーザーを削除する場合' do
-      it 'ユーザー削除に失敗すること' do
-        expect{
-          delete user_path(0)
-        }.to raise_error(ActiveRecord::RecordNotFound)
+
+    context 'ログインユーザーと異なるユーザーのユーザー情報を変更する場合' do
+      let!(:user) { create(:user) }
+      let!(:another_user) { create(:user, email:'yukko@example.com') }
+
+      before do
+        post login_path, params: { email: another_user.email, password: 'sample_password' }
+      end
+
+      it 'ユーザーリストページにリダイレクトすること' do
+        aggregate_failures do
+          delete user_path(user.id)
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to users_path       
+        end        
       end
     end
   end
@@ -136,7 +150,7 @@ RSpec.describe UsersController, type: :request do
         post login_path, params: { email: another_user.email, password: 'sample_password' }
       end
 
-      it 'ページにリダイレクトすること' do
+      it 'ユーザーリストページにリダイレクトすること' do
         aggregate_failures do
           put user_path(user.id), params: { user: { email: 'new_sample@example.com', password: 'new_sample_password' } }
           expect(response).to have_http_status(302)

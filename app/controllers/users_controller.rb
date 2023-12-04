@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_logged_in, only: [:index, :show]
-  before_action :check_edit_authority, only:[:edit, :update]
+  before_action :check_edit_authority, only:[:edit, :update, :destroy]
 
   # GET /users
   def index
