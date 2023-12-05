@@ -17,4 +17,10 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+  create_table "tweets", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end
