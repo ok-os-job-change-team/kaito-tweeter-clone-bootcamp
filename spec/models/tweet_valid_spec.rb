@@ -16,7 +16,6 @@ RSpec.describe Tweet do
       it 'valid?がfalseになり、errorsに「ツイートを入力してください」と格納される' do
         aggregate_failures do
           result = tweet.valid?
-
           expect(result).to eq false
           expect(tweet.errors.full_messages).to eq ['ツイートを入力してください']
         end
