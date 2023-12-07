@@ -5,7 +5,7 @@ RSpec.describe UsersController, type: :request do
 
     context 'ログインしているかつ、正常な時' do
       before do
-        post login_path, params: { email: user.email, password: 'sample_password' }
+        post login_path, params: { email: user.email, password: user.password }
       end
 
       it 'リクエストが成功し、ユーザー名が表示されること' do
@@ -34,14 +34,14 @@ RSpec.describe UsersController, type: :request do
 
     context 'ログインしているかつ、正常な場合' do
       before do
-        post login_path, params: { email: user.email, password: 'sample_password' }
+        post login_path, params: { email: user.email, password: user.password }
       end
 
       it 'リクエストが成功し、ユーザー名が表示されること' do
         aggregate_failures do
           get user_path(user)
           expect(response.status).to eq 200
-          expect(response.body).to include 'sample@example.com'
+          expect(response.body).to include user.email
         end
       end
     end
@@ -135,8 +135,8 @@ RSpec.describe UsersController, type: :request do
       it 'プロフィールの変更に失敗すること' do
         aggregate_failures do
           put user_path(user.id), params: { user: { email: '', password: '' } }
-          expect(user.reload.email).to eq 'sample@example.com'
-          expect(user.reload.password).to eq 'sample_password'
+          expect(user.reload.email).to eq user.email
+          expect(user.reload.password).to eq user.password
           expect(response.body).to include '変更に失敗しました'
         end
       end
