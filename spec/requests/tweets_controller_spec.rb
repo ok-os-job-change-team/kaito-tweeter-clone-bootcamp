@@ -4,11 +4,12 @@ RSpec.describe TweetsController, type: :request do
       let!(:user) { create(:user) }
       let!(:tweet) { create(:tweet, user_id: user.id) }
 
-      it 'リクエストが成功し、ツイートが表示されること' do
+      it 'リクエストが成功し、ツイートとメールアドレスが表示されること' do
         aggregate_failures do
           get tweets_path
           expect(response.status).to eq 200
           expect(response.body).to include tweet.tweet_content
+          expect(response.body).to include user.email
         end
       end
     end
@@ -19,12 +20,12 @@ RSpec.describe TweetsController, type: :request do
       let!(:user) { create(:user) }
       let!(:tweet) { create(:tweet, user_id: user.id) }
 
-      it 'リクエストが成功し、ユーザー名が表示されること' do
+      it 'リクエストが成功し、ツイートとメールアドレスが表示されること' do
         aggregate_failures do
           get tweet_path(tweet.id)
           expect(response.status).to eq 200
           expect(response.body).to include tweet.tweet_content
-          expect(response.body).to include tweet.user_id.to_s
+          expect(response.body).to include user.email
         end
       end
     end

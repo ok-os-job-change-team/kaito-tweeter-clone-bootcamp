@@ -6,6 +6,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @tweets = @user.tweets
+    # puser.tweetsは複数のツイートが入った配列
   end
 
   def new
