@@ -1,0 +1,17 @@
+<h1>ログインページ</h1>
+
+<%= form_with url: login_path, local: true, data: { turbo: "false" } do |f| %>
+  <%= f.label :メールアドレス %>
+  <%= f.email_field :email %>
+  <%= f.label :パスワード %>
+  <%= f.password_field :password %>
+  <%= f.submit 'ログイン' %>
+<% end %>
+
+<h4>
+<%= button_to "新規ユーザー登録はこちら", new_user_path, method: :get %>
+</h4>
+
+<h4>
+<%= flash[:alert] %> 
+</h4>

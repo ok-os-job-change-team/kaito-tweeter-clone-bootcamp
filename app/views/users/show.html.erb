@@ -6,9 +6,25 @@
 <p><%= @user.created_at %></p>
 <h3>アカウント更新日</h3>
 <p><%= @user.updated_at %></p>
+<<<<<<< HEAD
 <%= button_to "ユーザー編集", edit_user_path(@user.id), method: :get %>
 
 <% @tweets.each do |tweet| %>
   <hr>
   <p><span>ツイート内容: </span><%=link_to tweet.tweet_content, tweet_path(tweet.id) %></p>
 <% end %>
+=======
+
+<% if session[:user_id] == @user.id %>
+  <%= button_to "ユーザー編集", edit_user_path(@user.id), method: :get %>
+<% end %>
+
+<% if session[:user_id] %>
+ <p>現在ログインしているユーザーのid: <%= session[:user_id] %></p>
+ <%= button_to "ログアウト", logout_path, method: :delete %>
+<% end %>
+
+<h4>
+<%= button_to "ユーザーリスト", users_path, method: :get %>
+</h4>
+>>>>>>> 49c7bf34d8825b0f8ad36385f232df1e25961778
