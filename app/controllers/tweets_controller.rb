@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :check_logged_in, only: [:index, :show]
+  before_action :check_logged_in, only: [:index, :show, :new, :create]
 
   # GET /tweets
   def index
@@ -12,16 +12,15 @@ class TweetsController < ApplicationController
     @user = @tweet.user
   end
 
+  # GET /tweets/new
   def new
     @tweet = Tweet.new
   end
 
+  # POST /tweets
   def create
     @tweet = Tweet.new(tweet_params)
-    # ログイン機能がマージされていないので、仮にuser_id = 1 を代入してツイートを作成
-    @tweet.user_id = 1
-    # ログイン機能がマージされた後、以下を実装する
-    # @tweet.user_id = current_user.id
+    @tweet.user_id = current_user.id
     if @tweet.save
       flash[:notice] = '投稿に成功しました'
       redirect_to tweets_path
@@ -33,7 +32,6 @@ class TweetsController < ApplicationController
 
   private
     def tweet_params
-      binding.pry
       params.require(:tweet).permit(:tweet_content)
     end
 end
