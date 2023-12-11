@@ -19,8 +19,7 @@ class TweetsController < ApplicationController
 
   # POST /tweets
   def create
-    @tweet = Tweet.new(tweet_params)
-    @tweet.user_id = current_user.id
+    @tweet = Tweet.new(tweet_params.merge(user: current_user))
     if @tweet.save
       flash[:notice] = '投稿に成功しました'
       redirect_to tweets_path
@@ -31,7 +30,7 @@ class TweetsController < ApplicationController
   end
 
   private
-    def tweet_params
-      params.require(:tweet).permit(:tweet_content)
-    end
+  def tweet_params
+    params.require(:tweet).permit(:tweet_content)
+  end
 end

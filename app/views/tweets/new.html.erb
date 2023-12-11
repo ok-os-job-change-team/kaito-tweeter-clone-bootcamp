@@ -1,7 +1,6 @@
 <h1>ツイート投稿</h1>
 
 <%= form_with model: @tweet, url: tweets_path, local: true, data: { turbo: "false" } do |form| %>
-
   <div>
     <h3>
       <%= flash[:alert] %> 
