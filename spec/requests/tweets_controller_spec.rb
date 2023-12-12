@@ -120,4 +120,95 @@ RSpec.describe TweetsController, type: :request do
       end
     end
   end
+
+  describe 'GET tweets/:id/edit' do
+    let!(:tweet) { create(:tweet, user_id: user.id) }
+
+    context 'ログインユーザーと同じユーザーのツイート修正ページへアクセスする場合' do
+      let!(:user) { create(:user) }
+
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
+      it 'ツイート修正ページに遷移すること' do
+        aggregate_failures do
+          get edit_tweet_path(tweet.id)
+          expect(response.status).to eq 200
+          expect(response.body).to include 'ツイート修正'
+        end
+      end
+    end
+
+    context 'ログインユーザーと異なるユーザーのツイート変更ページへアクセスする場合' do
+      let!(:user) { create(:user) }
+      let!(:another_user) { create(:user, email:'yukko@example.com') }
+
+      before do
+        post login_path, params: { email: another_user.email, password: 'sample_password' }
+      end
+
+      it 'ユーザーリストページにリダイレクトすること' do
+        aggregate_failures do
+          get edit_tweet_path(tweet.id)
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to users_path
+        end
+      end
+    end
+  end
+
+  describe 'PUT /tweets/:id' do
+    let!(:tweet) { create(:tweet, user_id: user.id) }
+
+    context 'ログインユーザーと同じユーザーのツイートを修正し、なおかつタイトルとツイートが正常な場合' do
+      let!(:user) { create(:user) }
+
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
+      it 'ツイートの修正に成功すること' do
+        aggregate_failures do
+          put tweet_path(tweet.id), params: { tweet: { tweet_title: 'new_title', tweet_content: 'new_content', user_id: user.id } }
+          expect(tweet.reload.tweet_title).to eq 'new_title'
+          expect(tweet.reload.tweet_content).to eq 'new_content'
+        end
+      end
+    end
+
+    context 'ログインユーザーと同じユーザーのツイートを修正し、なおかつタイトルとツイートが異常で、バリデーションエラーとなる場合' do
+      let!(:user) { create(:user) }
+
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
+      it 'ツイートの修正に失敗すること' do
+        aggregate_failures do
+          put tweet_path(tweet.id), params: { tweet: { tweet_title: '', tweet_content: '', user_id: user.id } }
+          expect(tweet.reload.tweet_title).to eq tweet.tweet_title
+          expect(tweet.reload.tweet_content).to eq tweet.tweet_content
+          expect(response.body).to include '修正に失敗しました'
+        end
+      end
+    end
+
+    context 'ログインユーザーと異なるユーザーのツイートを修正する場合' do
+      let!(:user) { create(:user) }
+      let!(:another_user) { create(:user, email:'yukko@example.com') }
+
+      before do
+        post login_path, params: { email: another_user.email, password: 'sample_password' }
+      end
+
+      it 'ユーザーリストページにリダイレクトすること' do
+        aggregate_failures do
+          put tweet_path(tweet.id), params: { tweet: { tweet_title: 'new_title', tweet_content: 'new_content', user_id: user.id } }
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to users_path
+        end
+      end
+    end
+  end
 end

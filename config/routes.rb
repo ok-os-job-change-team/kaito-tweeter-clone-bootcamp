@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users, only: [:index, :new, :create, :show, :destroy, :edit, :update]
-  resources :tweets, only: [:index, :show, :new, :create]
+  resources :tweets, only: [:index, :new, :create, :show, :edit, :update]
   
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
