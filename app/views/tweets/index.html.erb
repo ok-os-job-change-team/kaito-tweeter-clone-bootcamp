@@ -3,7 +3,8 @@
 <% @tweets.each do |tweet| %>
   <hr>
   <p><span>メールアドレス: </span><%= tweet.user.email %></p>
-  <p><span>ツイート内容: </span><%=link_to tweet.tweet_content, tweet_path(tweet.id) %></p>
+  <p><span>タイトル: </span><%= tweet.tweet_title %></p>
+  <p><span>ツイート: </span><%=link_to tweet.tweet_content, tweet_path(tweet.id) %></p>
 <% end %>
 
 <div class="text-notice">
