@@ -5,6 +5,7 @@ ja:
         email: メールアドレス
         password: パスワード
       tweet:
+        tweet_title: タイトル
         tweet_content: ツイート
     errors:
       messages:

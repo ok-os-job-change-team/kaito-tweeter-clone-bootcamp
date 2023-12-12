@@ -1,6 +1,6 @@
 RSpec.describe Tweet do
   describe 'バリデーションのテスト' do
-    context 'tweet_contetが存在する場合' do
+    context 'tweet_contetとtweet_titleが存在する場合' do
       let(:user) { create(:user) }
       let(:tweet) { build(:tweet, user_id: user.id)}
       
@@ -31,6 +31,32 @@ RSpec.describe Tweet do
           result = tweet.valid?
           expect(result).to eq false
           expect(tweet.errors.full_messages).to eq ['ツイートを入力してください']
+        end
+      end
+    end
+
+    context 'tweet_titleが空文字の場合' do
+      let(:user) { create(:user) }
+      let(:tweet) { build(:tweet, tweet_title: '', user_id: user.id) }
+
+      it 'valid?がfalseになり、errorsに「タイトルを入力してください」と格納される' do
+        aggregate_failures do
+          result = tweet.valid?
+          expect(result).to eq false
+          expect(tweet.errors.full_messages).to eq ['タイトルを入力してください']
+        end
+      end
+    end
+
+    context 'tweet_titleがnilの場合' do
+      let(:user) { create(:user) }
+      let(:tweet) { build(:tweet, tweet_title: nil, user_id: user.id) }
+
+      it 'valid?がfalseになり、errorsに「タイトルを入力してください」と格納される' do
+        aggregate_failures do
+          result = tweet.valid?
+          expect(result).to eq false
+          expect(tweet.errors.full_messages).to eq ['タイトルを入力してください']
         end
       end
     end
