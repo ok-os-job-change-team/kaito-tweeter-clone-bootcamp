@@ -6,8 +6,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_logged_in
-    flash[:alert] = 'ログインしてください'
-    redirect_to login_path if current_user.nil?
+    if current_user.nil?
+      flash[:alert] = 'ログインしてください'
+      redirect_to login_path
+    end
   end
 
   def check_edit_authority
