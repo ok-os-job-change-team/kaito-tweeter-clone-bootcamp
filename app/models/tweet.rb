@@ -2,8 +2,8 @@
 
 class Tweet < ApplicationRecord
   validates :user, presence: true
-  validates :tweet_title, presence: true
-  validates :tweet_content, presence: true
+  validates :title, presence: true
+  validates :content, presence: true
 
   belongs_to :user
 end

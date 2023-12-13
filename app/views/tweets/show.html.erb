@@ -1,7 +1,7 @@
 <h1>ツイート</h1>
 <p><span>メールアドレス： </span><%= @user.email %></p>
-<p><span>タイトル: </span><%= @tweet.tweet_title %></p>
-<p><span>ツイート: </span><%= @tweet.tweet_content %></p>
+<p><span>タイトル: </span><%= @tweet.title %></p>
+<p><span>ツイート: </span><%= @tweet.content %></p>
 
 <% if session[:user_id] == @tweet.user_id %>
   <%= button_to "ツイート修正", edit_tweet_path(@tweet.id), method: :get %>
