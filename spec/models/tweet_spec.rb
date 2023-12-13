@@ -1,6 +1,6 @@
 RSpec.describe Tweet do
   describe 'バリデーションのテスト' do
-    context 'tweet_contetが存在する場合' do
+    context 'contetとtitleが存在する場合' do
       let(:user) { create(:user) }
       let(:tweet) { build(:tweet, user_id: user.id)}
       
@@ -9,9 +9,9 @@ RSpec.describe Tweet do
       end
     end
 
-    context 'tweet_contentが空文字の場合' do
+    context 'contentが空文字の場合' do
       let(:user) { create(:user) }
-      let(:tweet) { build(:tweet, tweet_content: '', user_id: user.id) }
+      let(:tweet) { build(:tweet, content: '', user_id: user.id) }
 
       it 'valid?がfalseになり、errorsに「ツイートを入力してください」と格納される' do
         aggregate_failures do
@@ -22,15 +22,41 @@ RSpec.describe Tweet do
       end
     end
 
-    context 'tweet_contentがnilの場合' do
+    context 'contentがnilの場合' do
       let(:user) { create(:user) }
-      let(:tweet) { build(:tweet, tweet_content: nil, user_id: user.id) }
+      let(:tweet) { build(:tweet, content: nil, user_id: user.id) }
 
       it 'valid?がfalseになり、errorsに「ツイートを入力してください」と格納される' do
         aggregate_failures do
           result = tweet.valid?
           expect(result).to eq false
           expect(tweet.errors.full_messages).to eq ['ツイートを入力してください']
+        end
+      end
+    end
+
+    context 'titleが空文字の場合' do
+      let(:user) { create(:user) }
+      let(:tweet) { build(:tweet, title: '', user_id: user.id) }
+
+      it 'valid?がfalseになり、errorsに「タイトルを入力してください」と格納される' do
+        aggregate_failures do
+          result = tweet.valid?
+          expect(result).to eq false
+          expect(tweet.errors.full_messages).to eq ['タイトルを入力してください']
+        end
+      end
+    end
+
+    context 'titleがnilの場合' do
+      let(:user) { create(:user) }
+      let(:tweet) { build(:tweet, title: nil, user_id: user.id) }
+
+      it 'valid?がfalseになり、errorsに「タイトルを入力してください」と格納される' do
+        aggregate_failures do
+          result = tweet.valid?
+          expect(result).to eq false
+          expect(tweet.errors.full_messages).to eq ['タイトルを入力してください']
         end
       end
     end

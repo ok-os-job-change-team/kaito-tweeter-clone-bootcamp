@@ -1,5 +1,5 @@
 RSpec.describe User do
-  describe '#presenseメソッド' do
+  describe 'バリデーションのテスト' do
     context 'emailが存在する場合' do
       let(:user) { build(:user, email: 'hoge@example.com') }
 
@@ -61,6 +61,15 @@ RSpec.describe User do
           expect(result).to eq false
           expect(user.errors.full_messages).to eq ['パスワードを入力してください']
         end
+      end
+    end
+  end
+
+  describe 'アソシエーションのテスト' do
+    context 'Tweetモデルとの関係' do
+      it '1:Nとなっている' do
+        association = described_class.reflect_on_association(:tweets)
+        expect(association.macro).to eq(:has_many)
       end
     end
   end

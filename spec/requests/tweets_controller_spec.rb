@@ -8,11 +8,12 @@ RSpec.describe TweetsController, type: :request do
         post login_path, params: { email: user.email, password: user.password }
       end
 
-      it 'リクエストが成功し、ツイートとメールアドレスが表示されること' do
+      it 'リクエストが成功し、タイトルとツイートとメールアドレスが表示されること' do
         aggregate_failures do
           get tweets_path
           expect(response.status).to eq 200
-          expect(response.body).to include tweet.tweet_content
+          expect(response.body).to include tweet.title
+          expect(response.body).to include tweet.content
           expect(response.body).to include user.email
         end
       end
@@ -38,11 +39,12 @@ RSpec.describe TweetsController, type: :request do
         post login_path, params: { email: user.email, password: user.password }
       end
 
-      it 'リクエストが成功し、ツイートとメールアドレスが表示されること' do
+      it 'リクエストが成功し、タイトルとツイートとメールアドレスが表示されること' do
         aggregate_failures do
           get tweet_path(tweet.id)
           expect(response.status).to eq 200
-          expect(response.body).to include tweet.tweet_content
+          expect(response.body).to include tweet.title
+          expect(response.body).to include tweet.content
           expect(response.body).to include user.email
         end
       end
@@ -98,7 +100,7 @@ RSpec.describe TweetsController, type: :request do
       it 'ツイートの投稿に成功し、ツイート一覧ページにリダイレクトすること' do
         aggregate_failures do
           expect{
-          post tweets_path params: { tweet: { tweet_content: 'sample_content', user_id: user.id } }
+          post tweets_path params: { tweet: { title: 'sample_title', content: 'sample_content', user_id: user.id } }
           } .to change(Tweet, :count).by(1)
           expect(response).to have_http_status(302)
           expect(response).to redirect_to tweets_path
@@ -110,7 +112,7 @@ RSpec.describe TweetsController, type: :request do
       it 'ログインページにリダイレクトすること' do
         aggregate_failures do
           expect{
-          post tweets_path params: { tweet: { tweet_content: 'sample_content', user_id: user.id } }
+          post tweets_path params: { tweet: { title: 'sample_title', content: 'sample_content', user_id: user.id } }
           } .to change(Tweet, :count).by(0)
           expect(response).to have_http_status(302)
           expect(response).to redirect_to login_path

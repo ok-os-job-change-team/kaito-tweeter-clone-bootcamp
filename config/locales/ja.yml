@@ -5,7 +5,8 @@ ja:
         email: メールアドレス
         password: パスワード
       tweet:
-        tweet_content: ツイート
+        title: タイトル
+        content: ツイート
     errors:
       messages:
         blank: を入力してください
