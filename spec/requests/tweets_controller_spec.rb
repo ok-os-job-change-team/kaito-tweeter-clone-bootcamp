@@ -170,9 +170,9 @@ RSpec.describe TweetsController, type: :request do
 
       it 'ツイートの修正に成功すること' do
         aggregate_failures do
-          put tweet_path(tweet.id), params: { tweet: { tweet_title: 'new_title', tweet_content: 'new_content', user_id: user.id } }
-          expect(tweet.reload.tweet_title).to eq 'new_title'
-          expect(tweet.reload.tweet_content).to eq 'new_content'
+          put tweet_path(tweet.id), params: { tweet: { title: 'new_title', content: 'new_content', user_id: user.id } }
+          expect(tweet.reload.title).to eq 'new_title'
+          expect(tweet.reload.content).to eq 'new_content'
         end
       end
     end
@@ -186,9 +186,9 @@ RSpec.describe TweetsController, type: :request do
 
       it 'ツイートの修正に失敗すること' do
         aggregate_failures do
-          put tweet_path(tweet.id), params: { tweet: { tweet_title: '', tweet_content: '', user_id: user.id } }
-          expect(tweet.reload.tweet_title).to eq tweet.tweet_title
-          expect(tweet.reload.tweet_content).to eq tweet.tweet_content
+          put tweet_path(tweet.id), params: { tweet: { title: '', content: '', user_id: user.id } }
+          expect(tweet.reload.title).to eq tweet.title
+          expect(tweet.reload.content).to eq tweet.content
           expect(response.body).to include '修正に失敗しました'
         end
       end
@@ -204,7 +204,7 @@ RSpec.describe TweetsController, type: :request do
 
       it 'ユーザーリストページにリダイレクトすること' do
         aggregate_failures do
-          put tweet_path(tweet.id), params: { tweet: { tweet_title: 'new_title', tweet_content: 'new_content', user_id: user.id } }
+          put tweet_path(tweet.id), params: { tweet: { title: 'new_title', content: 'new_content', user_id: user.id } }
           expect(response).to have_http_status(302)
           expect(response).to redirect_to users_path
         end
