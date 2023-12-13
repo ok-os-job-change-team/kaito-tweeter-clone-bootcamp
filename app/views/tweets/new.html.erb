@@ -1,0 +1,24 @@
+<h1>ツイート投稿</h1>
+
+<%= form_with model: @tweet, url: tweets_path, local: true, data: { turbo: "false" } do |form| %>
+  <div>
+    <h3>
+      <%= flash[:alert] %> 
+    </h3>
+      <ul>
+      <% @tweet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <table>
+    <tr>
+      <th>ツイート</th>
+      <td><%= form.text_field :tweet_content %></td>
+    </tr>
+    <tr>
+      <td><%= form.submit '送信' %></td>
+    </tr>
+  </table>
+<% end %>
