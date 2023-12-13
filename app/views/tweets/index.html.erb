@@ -4,7 +4,7 @@
   <hr>
   <p><span>メールアドレス: </span><%= tweet.user.email %></p>
   <p><span>タイトル: </span><%= tweet.title %></p>
-  <p><span>ツイート: </span><%=link_to tweet.text_area, tweet_path(tweet.id) %></p>
+  <p><span>ツイート: </span><%=link_to tweet.content, tweet_path(tweet.id) %></p>
 <% end %>
 
 <div class="text-notice">
