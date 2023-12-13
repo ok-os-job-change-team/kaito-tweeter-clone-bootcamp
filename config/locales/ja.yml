@@ -6,7 +6,7 @@ ja:
         password: パスワード
       tweet:
         title: タイトル
-        content: ツイート
+        text_area: ツイート
     errors:
       messages:
         blank: を入力してください

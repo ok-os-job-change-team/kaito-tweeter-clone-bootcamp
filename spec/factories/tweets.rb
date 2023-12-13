@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :tweet do
     title { 'sample_title' }
-    content { 'sample_contet' }
+    text_area { 'sample_contet' }
   end
 end

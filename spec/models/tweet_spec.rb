@@ -9,9 +9,9 @@ RSpec.describe Tweet do
       end
     end
 
-    context 'contentが空文字の場合' do
+    context 'text_areaが空文字の場合' do
       let(:user) { create(:user) }
-      let(:tweet) { build(:tweet, content: '', user_id: user.id) }
+      let(:tweet) { build(:tweet, text_area: '', user_id: user.id) }
 
       it 'valid?がfalseになり、errorsに「ツイートを入力してください」と格納される' do
         aggregate_failures do
@@ -22,9 +22,9 @@ RSpec.describe Tweet do
       end
     end
 
-    context 'contentがnilの場合' do
+    context 'text_areaがnilの場合' do
       let(:user) { create(:user) }
-      let(:tweet) { build(:tweet, content: nil, user_id: user.id) }
+      let(:tweet) { build(:tweet, text_area: nil, user_id: user.id) }
 
       it 'valid?がfalseになり、errorsに「ツイートを入力してください」と格納される' do
         aggregate_failures do
