@@ -211,4 +211,39 @@ RSpec.describe TweetsController, type: :request do
       end
     end
   end
+
+  describe 'DELETE /tweets' do
+    let!(:tweet) { create(:tweet, user_id: user.id) }
+
+    context 'ログインユーザーと同じユーザーのツイートを削除する場合' do
+      let!(:user) { create(:user) }
+
+      before do
+        post login_path, params: { email: user.email, password: 'sample_password' }
+      end
+
+      it 'ツイート削除に成功すること' do
+        expect{
+          delete tweet_path(tweet.id)
+        }.to change(Tweet, :count).by(-1)
+      end
+    end
+
+    context 'ログインユーザーと異なるユーザーのツイートを変更する場合' do
+      let!(:user) { create(:user) }
+      let!(:another_user) { create(:user, email:'yukko@example.com') }
+
+      before do
+        post login_path, params: { email: another_user.email, password: 'sample_password' }
+      end
+
+      it 'ツイート一覧ページにリダイレクトすること' do
+        aggregate_failures do
+          delete tweet_path(tweet.id)
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to users_path       
+        end        
+      end
+    end
+  end
 end
