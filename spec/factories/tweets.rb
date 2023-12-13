@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :tweet do
-    tweet_content { 'sample_contet' }
+    title { 'sample_title' }
+    content { 'sample_contet' }
   end
 end
