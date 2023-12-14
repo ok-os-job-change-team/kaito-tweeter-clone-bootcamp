@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :check_logged_in, only: [:index, :show, :new, :create]
-  before_action :check_tweet_edit_authority, only:[:edit, :update]
+  before_action :check_edit_authority, only:[:edit, :update]
 
   # GET /tweets
   def index
@@ -32,7 +32,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/:id/edit
   def edit
-    @tweet = Tweet.find(params[:id])
+    @tweet = current_user.tweets.find(params[:id])
     @user = @tweet.user
   end
 
