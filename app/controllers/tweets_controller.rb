@@ -50,7 +50,7 @@ class TweetsController < ApplicationController
 
   # DELETE /tweets/:id
   def destroy
-    @tweet = Tweet.find(params[:id])
+    @tweet = current_user.tweets.find(params[:id])
     if @tweet.destroy
       flash[:notice] = '削除に成功しました'
       redirect_to tweets_path
