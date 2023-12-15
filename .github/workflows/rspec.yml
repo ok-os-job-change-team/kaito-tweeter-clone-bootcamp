@@ -18,9 +18,10 @@ jobs:         # ワークフローで実行されるjobの設定
         run: |
           docker compose build 
 
-      - name: Create and Setup DB   # DBコンテナの起動と初期設定
+      - name: Setup containers      # コンテナの起動と初期設定
         run: |
           docker compose up -d database
+          docker compose up -d web_app
           docker compose run web_app rake db:scchema:load
           docker compose run web_app rails db:seed
 
