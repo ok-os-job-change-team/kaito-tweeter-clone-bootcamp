@@ -16,15 +16,14 @@ jobs:         # ワークフローで実行されるjobの設定
 
       - name: Build Docker image    # Dockerイメージをビルド
         run: |
-          docker compose build 
+          docker compose build
 
-      - name: Setup containers      # コンテナの起動と初期設定
+      - name: Create and Setup DB   # コンテナの起動と初期設定
         run: |
           docker compose up -d database
-          sleep 15
-          docker compose up -d app          
-          docker compose run app rake db:scchema:load
+          sleep 10
+          docker compose run app rake db:schema:load
           docker compose run app rails db:seed
 
       - name: Run RSpec             # RSpec実行
-        run: docker compose run web_app bundle exec rspec
+        run: docker compose run app bundle exec rspec
