@@ -22,6 +22,7 @@ jobs:         # ワークフローで実行されるjobの設定
         run: |
           docker compose up -d database
           sleep 10
+          docker compose run rails db:create
           docker compose run app rake db:schema:load
           docker compose run app rails db:seed
 
