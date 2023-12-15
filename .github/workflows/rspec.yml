@@ -1,0 +1,39 @@
+name: RSpec CI # ワークフローの名前
+
+on:           # ワークフローが動作するタイミング
+  pull_request:
+    paths:
+      - ".github/workflows/rspec.yml"
+
+jobs:         # ワークフローで実行されるjobの設定
+  rspec:
+    runs-on: ubuntu-latest          # GitHubが提供しているホストランナー
+    timeout-minutes: 10             # jobを実行する最長時間の設定[min]
+
+    steps:
+      - name: Checkout code         # リポジトリからコードを取得
+        uses: actions/checkout@v2
+
+      - name: Build Docker image    # Dockerイメージをビルド
+        run: |
+          docker compose build 
+
+      - name: Create and Setup DB   # DBコンテナを起動
+        run: |
+          docker compose up -d database
+      
+      - name: Do healthcheck DB     # DBコンテナの起動確認
+        run: |
+          docker compose run database
+          --health-cmd "mysqladmin ping" \
+          --health-interval 10s \
+          --health-retries 5 \
+          --health-timeout 5s \
+
+      - name: Setup DB              # DBのセットアップ
+        run: |
+          docker compose run web_app rake db:scchema:load
+          docker compose run web_app rails db:seed
+
+      - name: Run RSpec             # RSpec実行
+        run: docker compose run web_app bundle exec rspec
