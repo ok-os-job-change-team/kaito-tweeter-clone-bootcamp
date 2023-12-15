@@ -2,10 +2,12 @@ name: RSpec CI # ワークフローの名前
 
 on:           # ワークフローが動作するタイミング
   pull_request:
-    paths:
-      - ".github/workflows/rspec.yml"
+    # 現状、パスの指定はなし
+    # paths:
+    #   - ".github/workflows/rspec.yml"
+    #   - "hoge/**"
 
-jobs:         # ワークフローで実行されるjobの設定
+jobs:         # ワークフローで実行されるジョブを設定
   rspec:
     runs-on: ubuntu-latest            # GitHubが提供しているホストランナーを設定
     timeout-minutes: 10               # jobを実行する最長時間の設定[min]
