@@ -24,11 +24,10 @@ jobs:         # ワークフローで実行されるjobの設定
       
       - name: Do healthcheck DB     # DBコンテナの起動確認
         run: |
-          docker compose run database
-          --health-cmd "mysqladmin ping" \
-          --health-interval 10s \
-          --health-retries 5 \
-          --health-timeout 5s \
+          docker compose run database --health-cmd "mysqladmin ping"
+          docker compose run database --health-interval 10s
+          docker compose run database --health-retries 5
+          docker compose run database --health-timeout 5s
 
       - name: Setup DB              # DBのセットアップ
         run: |
