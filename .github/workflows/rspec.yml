@@ -22,8 +22,9 @@ jobs:         # ワークフローで実行されるjobの設定
         run: |
           docker compose up -d database
           sleep 15
-          docker compose run web_app rake db:scchema:load
-          docker compose run web_app rails db:seed
+          docker compose up -d app          
+          docker compose run app rake db:scchema:load
+          docker compose run app rails db:seed
 
       - name: Run RSpec             # RSpec実行
         run: docker compose run web_app bundle exec rspec
