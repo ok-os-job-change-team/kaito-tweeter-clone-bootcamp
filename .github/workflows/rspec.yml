@@ -18,19 +18,9 @@ jobs:         # ワークフローで実行されるjobの設定
         run: |
           docker compose build 
 
-      - name: Create and Setup DB   # DBコンテナを起動
+      - name: Create and Setup DB   # DBコンテナの起動と初期設定
         run: |
           docker compose up -d database
-      
-      - name: Do healthcheck DB     # DBコンテナの起動確認
-        run: |
-          docker compose run database --health-cmd "mysqladmin ping"
-          docker compose run database --health-interval 10s
-          docker compose run database --health-retries 5
-          docker compose run database --health-timeout 5s
-
-      - name: Setup DB              # DBのセットアップ
-        run: |
           docker compose run web_app rake db:scchema:load
           docker compose run web_app rails db:seed
 
