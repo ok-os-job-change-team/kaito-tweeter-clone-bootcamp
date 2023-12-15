@@ -12,7 +12,7 @@ jobs:         # ワークフローで実行されるjobの設定
 
     steps:
       - name: Checkout code         # リポジトリからコードを取得
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build Docker image    # Dockerイメージをビルド
         run: |
