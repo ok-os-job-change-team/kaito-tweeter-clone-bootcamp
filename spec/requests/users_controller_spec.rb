@@ -22,7 +22,7 @@ RSpec.describe UsersController, type: :request do
       it 'ログインページにリダイレクトすること' do
         aggregate_failures do
           get users_path
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to login_path
         end
       end
@@ -50,7 +50,7 @@ RSpec.describe UsersController, type: :request do
       it 'ログインページにリダイレクトすること' do
         aggregate_failures do
           get user_path(user)
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to login_path
         end
       end
@@ -101,7 +101,7 @@ RSpec.describe UsersController, type: :request do
       it 'ユーザーリストページにリダイレクトすること' do
         aggregate_failures do
           delete user_path(user.id)
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to users_path
         end
       end
@@ -153,7 +153,7 @@ RSpec.describe UsersController, type: :request do
       it 'ユーザーリストページにリダイレクトすること' do
         aggregate_failures do
           put user_path(user.id), params: { user: { email: 'new_sample@example.com', password: 'new_sample_password' } }
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to users_path
         end
       end
@@ -188,7 +188,7 @@ RSpec.describe UsersController, type: :request do
       it 'ユーザーリストページにリダイレクトすること' do
         aggregate_failures do
           get edit_user_path(user.id)
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to users_path
         end
       end

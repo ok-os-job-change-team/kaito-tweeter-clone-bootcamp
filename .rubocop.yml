@@ -1,6 +1,39 @@
 # rubocop_todo.ymlを継承する場合は下のコメントアウトを外す
 # inherit_from: .rubocop_todo.yml
 
+# 拡張ライブラリの読み込み
+require:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rails
+  - rubocop-rspec
+
+# 自動生成ファイルはチェック対象から除外
+AllCops:
+  Exclude:
+    - "node_modules/**/*" # rubocop config/default.yml
+    - "vendor/**/*" # rubocop config/default.yml
+    - "db/schema.rb"
+
+# RSpecのコンテキストの記述に関する指摘を除外
+RSpec/ContextWording:
+  Enabled: false
+
+# RSpecのテストケースの長さを指摘
+RSpec/ExampleLength:
+  Max: 8
+
+# 不必要にletやlet!が使われていたら指摘
+RSpec/LetSetup:
+  # 暫定的に無効化。あとで修正する！
+  Enabled: false
+
+# has_manyまたはhas_oneの関連付けが定義されている際に
+# :destroy オプションが指定されていることを確認
+Rails/HasManyOrHasOneDependent:
+  # 暫定的に無効化。あとで修正する！
+  Enabled: false
+
 # メソッドやブロックの行数を制限する
 Metrics/BlockLength:
   Exclude:
@@ -50,7 +83,7 @@ Style/GlobalStdStream:
 # Dryなコードを書けていない箇所を指摘する
 Style/IdenticalConditionalBranches:
   Exclude:
-    # いったん、Excludeしていますが別ブランチで修正します
+    # 暫定的に無効化。あとで修正する！
     - 'app/controllers/users_controller.rb'
 
 # if,unless文を修飾子として使うか、条件文として使うか統一するように指摘する
@@ -66,6 +99,7 @@ Style/RedundantFetchBlock:
 # ぼっち演算子の使用を推奨する箇所を指摘する
 Style/SafeNavigation:
   Exclude:
+      # 暫定的に無効化。あとで修正する！
     - 'app/controllers/sessions_controller.rb'
 
 # 特殊なグローバル変数の使用について指摘する
@@ -75,3 +109,4 @@ Style/SpecialGlobalVars:
 # コードの行の長さを制限する
 Layout/LineLength:
   Max: 198
+

@@ -23,7 +23,7 @@ RSpec.describe TweetsController, type: :request do
       it 'ログインページにリダイレクトすること' do
         aggregate_failures do
           get tweets_path
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to login_path
         end
       end
@@ -54,7 +54,7 @@ RSpec.describe TweetsController, type: :request do
       it 'ログインページにリダイレクトすること' do
         aggregate_failures do
           get tweet_path(tweet.id)
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to login_path
         end
       end
@@ -82,7 +82,7 @@ RSpec.describe TweetsController, type: :request do
       it 'ログインページにリダイレクトすること' do
         aggregate_failures do
           get new_tweet_path
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to login_path
         end
       end
@@ -102,7 +102,7 @@ RSpec.describe TweetsController, type: :request do
           expect do
             post tweets_path params: { tweet: { title: 'sample_title', content: 'sample_content', user_id: user.id } }
           end.to change(Tweet, :count).by(1)
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to tweets_path
         end
       end
@@ -114,7 +114,7 @@ RSpec.describe TweetsController, type: :request do
           expect do
             post tweets_path params: { tweet: { title: 'sample_title', content: 'sample_content', user_id: user.id } }
           end.to change(Tweet, :count).by(0)
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to login_path
         end
       end
