@@ -99,9 +99,9 @@ RSpec.describe TweetsController, type: :request do
 
       it 'ツイートの投稿に成功し、ツイート一覧ページにリダイレクトすること' do
         aggregate_failures do
-          expect{
-          post tweets_path params: { tweet: { title: 'sample_title', content: 'sample_content', user_id: user.id } }
-          } .to change(Tweet, :count).by(1)
+          expect do
+            post tweets_path params: { tweet: { title: 'sample_title', content: 'sample_content', user_id: user.id } }
+          end.to change(Tweet, :count).by(1)
           expect(response).to have_http_status(302)
           expect(response).to redirect_to tweets_path
         end
@@ -111,9 +111,9 @@ RSpec.describe TweetsController, type: :request do
     context 'ログインしていないとき、ツイートを投稿した場合' do
       it 'ログインページにリダイレクトすること' do
         aggregate_failures do
-          expect{
-          post tweets_path params: { tweet: { title: 'sample_title', content: 'sample_content', user_id: user.id } }
-          } .to change(Tweet, :count).by(0)
+          expect do
+            post tweets_path params: { tweet: { title: 'sample_title', content: 'sample_content', user_id: user.id } }
+          end.to change(Tweet, :count).by(0)
           expect(response).to have_http_status(302)
           expect(response).to redirect_to login_path
         end

@@ -7,7 +7,7 @@ RSpec.describe SessionsController, type: :request do
       end
     end
   end
-  
+
   describe 'POST /login' do
     context '有効なemailとpasswordの場合' do
       let!(:user) { create(:user) }

@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :check_logged_in, only: [:index, :show, :new, :create]
+  before_action :check_logged_in, only: %i[index show new create]
 
   # GET /tweets
   def index
@@ -30,7 +30,7 @@ class TweetsController < ApplicationController
   end
 
   private
-  
+
   def tweet_params
     params.require(:tweet).permit(:title, :content)
   end

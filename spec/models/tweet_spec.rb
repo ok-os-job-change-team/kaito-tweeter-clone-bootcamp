@@ -2,8 +2,8 @@ RSpec.describe Tweet do
   describe 'バリデーションのテスト' do
     context 'contetとtitleが存在する場合' do
       let(:user) { create(:user) }
-      let(:tweet) { build(:tweet, user_id: user.id)}
-      
+      let(:tweet) { build(:tweet, user_id: user.id) }
+
       it 'valid?がtrueになる' do
         expect(tweet.valid?).to eq true
       end
@@ -63,7 +63,7 @@ RSpec.describe Tweet do
   end
 
   describe 'アソシエーションのテスト' do
-    context 'Userモデルとの関係' do     
+    context 'Userモデルとの関係' do
       it '1:Nの関係になっていること' do
         association = described_class.reflect_on_association(:user)
         expect(association.macro).to eq(:belongs_to)

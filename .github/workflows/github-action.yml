@@ -1,4 +1,4 @@
-name: RSpec CI # ワークフローの名前
+name: Rubocop and RSpec CI # ワークフローの名前
 
 on:           # ワークフローが動作するタイミング
   pull_request:
@@ -8,7 +8,7 @@ on:           # ワークフローが動作するタイミング
     #   - "hoge/**"
 
 jobs:         # ワークフローで実行されるジョブを設定
-  rspec:
+  rubocop_and_rspec:
     runs-on: ubuntu-latest            # GitHubが提供しているホストランナーを設定
     timeout-minutes: 10               # jobを実行する最長時間の設定[min]
 
@@ -28,6 +28,9 @@ jobs:         # ワークフローで実行されるジョブを設定
           docker compose run app rails db:create
           docker compose run app rake db:schema:load
           docker compose run app rails db:seed
+
+      # - name: Run Rubocop              # Rubocop実行
+      #   run: docker compose run app bundle exec rubocop
 
       - name: Run RSpec                # RSpec実行
         run: docker compose run app bundle exec rspec

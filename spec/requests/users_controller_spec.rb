@@ -1,7 +1,7 @@
 RSpec.describe UsersController, type: :request do
   describe 'GET /users' do
     let!(:user) { create(:user) }
-    let!(:another_user) { create(:user, email:'yukko@example.com') }
+    let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
     context 'ログインしているかつ、正常な時' do
       before do
@@ -60,17 +60,17 @@ RSpec.describe UsersController, type: :request do
   describe 'POST /users' do
     context 'ユーザーの作成が正常に実行される場合' do
       it 'ユーザー登録に成功すること' do
-        expect{
+        expect do
           post users_path, params: { user: { email: 'sample@example.com', password: 'sample_password' } }
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
       end
     end
 
     context 'ユーザーの作成に失敗し、バリデーションエラーとなる場合' do
       it 'ユーザー登録に失敗すること' do
-        expect{
+        expect do
           post users_path, params: { user: { email: '', password: '' } }
-        }.to change(User, :count).by(0)
+        end.to change(User, :count).by(0)
       end
     end
   end
@@ -84,15 +84,15 @@ RSpec.describe UsersController, type: :request do
       end
 
       it 'ユーザー削除に成功すること' do
-        expect{
+        expect do
           delete user_path(user.id)
-        }.to change(User, :count).by(-1)
+        end.to change(User, :count).by(-1)
       end
     end
 
     context 'ログインユーザーと異なるユーザーのユーザー情報を変更する場合' do
       let!(:user) { create(:user) }
-      let!(:another_user) { create(:user, email:'yukko@example.com') }
+      let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
       before do
         post login_path, params: { email: another_user.email, password: 'sample_password' }
@@ -102,8 +102,8 @@ RSpec.describe UsersController, type: :request do
         aggregate_failures do
           delete user_path(user.id)
           expect(response).to have_http_status(302)
-          expect(response).to redirect_to users_path       
-        end        
+          expect(response).to redirect_to users_path
+        end
       end
     end
   end
@@ -124,7 +124,7 @@ RSpec.describe UsersController, type: :request do
         end
       end
     end
-    
+
     context 'ログインユーザーと同じユーザーのユーザー情報を変更し、emailとpasswordが異常で、バリデーションエラーとなる場合' do
       let!(:user) { create(:user) }
 
@@ -144,7 +144,7 @@ RSpec.describe UsersController, type: :request do
 
     context 'ログインユーザーと異なるユーザーのユーザー情報を変更する場合' do
       let!(:user) { create(:user) }
-      let!(:another_user) { create(:user, email:'yukko@example.com') }
+      let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
       before do
         post login_path, params: { email: another_user.email, password: 'sample_password' }
@@ -154,8 +154,8 @@ RSpec.describe UsersController, type: :request do
         aggregate_failures do
           put user_path(user.id), params: { user: { email: 'new_sample@example.com', password: 'new_sample_password' } }
           expect(response).to have_http_status(302)
-          expect(response).to redirect_to users_path       
-        end        
+          expect(response).to redirect_to users_path
+        end
       end
     end
   end
@@ -179,7 +179,7 @@ RSpec.describe UsersController, type: :request do
 
     context 'ログインユーザーと異なるユーザーのユーザー情報を変更する場合' do
       let!(:user) { create(:user) }
-      let!(:another_user) { create(:user, email:'yukko@example.com') }
+      let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
       before do
         post login_path, params: { email: another_user.email, password: 'sample_password' }

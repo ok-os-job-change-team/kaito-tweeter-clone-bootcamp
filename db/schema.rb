@@ -11,17 +11,17 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 0) do
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'users', charset: 'utf8mb4', force: :cascade do |t|
+    t.string 'email', null: false
+    t.string 'password_digest', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
-  create_table "tweets", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "title", null: false, length: { maximum: 20 }
-    t.string "content", null: false, length: { maximum: 140 }
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'tweets', charset: 'utf8mb4', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.string 'title', null: false, length: { maximum: 20 }
+    t.string 'content', null: false, length: { maximum: 140 }
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 end
