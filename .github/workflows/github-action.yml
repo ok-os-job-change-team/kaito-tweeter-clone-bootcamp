@@ -29,8 +29,8 @@ jobs:         # ワークフローで実行されるジョブを設定
           docker compose run app rake db:schema:load
           docker compose run app rails db:seed
 
-      # - name: Run Rubocop              # Rubocop実行
-      #   run: docker compose run app bundle exec rubocop
+      - name: Run Rubocop              # Rubocop実行
+        run: docker compose run app bundle exec rubocop
 
       - name: Run RSpec                # RSpec実行
         run: docker compose run app bundle exec rspec
