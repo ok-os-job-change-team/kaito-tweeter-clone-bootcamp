@@ -1,0 +1,28 @@
+<h1>ツイート修正</h1>
+
+<%= form_with model: @tweet, url: tweet_path, local: true, data: { turbo: "false" } do |form| %>
+  <div>
+    <h3>
+      <%= flash[:alert] %> 
+    </h3>
+      <ul>
+      <% @tweet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <table>
+    <tr>
+      <th>タイトル</th>
+      <td><%= form.text_field :title %></td>
+    </tr>
+    <tr>
+      <th>ツイート</th>
+      <td><%= form.text_field :content %></td>
+    </tr>
+    <tr>
+      <td><%= form.submit '修正' %></td>
+    </tr>
+  </table>
+<% end %>

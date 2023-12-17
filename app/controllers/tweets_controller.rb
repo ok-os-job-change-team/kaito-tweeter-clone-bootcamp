@@ -1,5 +1,6 @@
 class TweetsController < ApplicationController
   before_action :check_logged_in, only: [:index, :show, :new, :create]
+  before_action :check_tweet_edit_authority, only:[:edit, :update, :destroy]
 
   # GET /tweets
   def index
@@ -26,6 +27,36 @@ class TweetsController < ApplicationController
     else
       flash.now[:alert] = '投稿に失敗しました'
       render :new
+    end
+  end
+
+  # GET /tweets/:id/edit
+  def edit
+    @tweet = Tweet.find(params[:id])
+    @user = @tweet.user
+  end
+
+  # PUT /tweets/:id
+  def update
+    @tweet = Tweet.find(params[:id])
+    if @tweet.update(tweet_params)
+      flash[:notice] = '修正に成功しました'
+      redirect_to tweets_path
+    else
+      flash.now[:alert] = '修正に失敗しました'
+      render :edit
+    end
+  end
+
+  # DELETE /tweets/:id
+  def destroy
+    @tweet = current_user.tweets.find(params[:id])
+    if @tweet.destroy
+      flash[:notice] = '削除に成功しました'
+      redirect_to tweets_path
+    else
+      flash[:alert] = '削除に失敗しました'
+      redirect_to tweets_path
     end
   end
 

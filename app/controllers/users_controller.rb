@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_logged_in, only: [:index, :show]
-  before_action :check_edit_authority, only:[:edit, :update, :destroy]
+  before_action :check_user_edit_authority, only:[:edit, :update, :destroy]
 
   # GET /users
   def index
@@ -11,7 +11,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @tweets = @user.tweets
-    # puser.tweetsは複数のツイートが入った配列
   end
 
   # GET /users/new
@@ -38,7 +37,7 @@ class UsersController < ApplicationController
       flash[:notice] = '削除しました'
       redirect_to '/users'
     else
-      flash.now[:alert] = '削除に失敗しました'
+      flash[:alert] = '削除に失敗しました'
       redirect_to '/users'
     end
   end
