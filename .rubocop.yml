@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 # rubocop_todo.ymlを継承する場合は下のコメントアウトを外す
 # inherit_from: .rubocop_todo.yml
 
