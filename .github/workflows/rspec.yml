@@ -1,0 +1,33 @@
+name: RSpec CI # ワークフローの名前
+
+on:           # ワークフローが動作するタイミング
+  pull_request:
+    # 現状、パスの指定はなし
+    # paths:
+    #   - ".github/workflows/rspec.yml"
+    #   - "hoge/**"
+
+jobs:         # ワークフローで実行されるジョブを設定
+  rspec:
+    runs-on: ubuntu-latest            # GitHubが提供しているホストランナーを設定
+    timeout-minutes: 10               # jobを実行する最長時間の設定[min]
+
+    steps:
+      - name: Checkout code           # リポジトリからコードを取得
+        uses: actions/checkout@v3
+
+      - name: Build Docker image      # Dockerイメージをビルド
+        run: |
+          docker compose build
+
+      - name: DB create and migrate   # DBの作成とマイグレーション
+                                      # MySQLコンテナが応答できるまで10秒スリープ
+        run: |
+          docker compose up -d database
+          sleep 10
+          docker compose run app rails db:create
+          docker compose run app rake db:schema:load
+          docker compose run app rails db:seed
+
+      - name: Run RSpec                # RSpec実行
+        run: docker compose run app bundle exec rspec
