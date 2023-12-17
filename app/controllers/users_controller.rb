@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       flash[:notice] = '削除しました'
       redirect_to '/users'
     else
-      flash.now[:alert] = '削除に失敗しました'
+      flash[:alert] = '削除に失敗しました'
       redirect_to '/users'
     end
   end
