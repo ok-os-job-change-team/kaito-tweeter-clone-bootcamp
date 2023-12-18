@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :check_logged_in, only: [:index, :show, :new, :create]
-  before_action -> { check_edit_authority(Tweet.find(params[:id]).user_id)}, only:[:edit, :update ]
+  before_action -> { check_edit_authority(Tweet.find(params[:id]).user_id)}, only:[:edit, :update, :destroy]
 
   # GET /tweets
   def index

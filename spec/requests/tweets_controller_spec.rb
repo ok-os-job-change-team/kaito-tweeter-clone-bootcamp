@@ -140,7 +140,7 @@ RSpec.describe TweetsController, type: :request do
       end
     end
 
-    context 'ログインユーザーと異なるユーザーのツイート変更ページへアクセスする場合' do
+    context 'ログインユーザーと異なるユーザーのツイート修正ページへアクセスする場合' do
       let!(:user) { create(:user) }
       let!(:another_user) { create(:user, email:'yukko@example.com') }
 
@@ -229,7 +229,7 @@ RSpec.describe TweetsController, type: :request do
       end
     end
 
-    context 'ログインユーザーと異なるユーザーのツイートを変更する場合' do
+    context 'ログインユーザーと異なるユーザーのツイートを削除する場合' do
       let!(:user) { create(:user) }
       let!(:another_user) { create(:user, email:'yukko@example.com') }
 
