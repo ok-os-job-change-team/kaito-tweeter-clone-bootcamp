@@ -2,3 +2,9 @@
 <p><span>メールアドレス： </span><%= @user.email %></p>
 <p><span>タイトル: </span><%= @tweet.title %></p>
 <p><span>ツイート: </span><%= @tweet.content %></p>
+
+<% if session[:user_id] == @tweet.user_id %>
+  <%= button_to "ツイート修正", edit_tweet_path(@tweet.id), method: :get %>
+  <%= button_to "ツイート削除", tweet_path(@tweet.id), method: :delete %>
+<% end %>
+
