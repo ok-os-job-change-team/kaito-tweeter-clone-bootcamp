@@ -142,7 +142,7 @@ RSpec.describe TweetsController, type: :request do
 
     context 'ログインユーザーと異なるユーザーのツイート修正ページへアクセスする場合' do
       let!(:user) { create(:user) }
-      let!(:another_user) { create(:user, email:'yukko@example.com') }
+      let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
       before do
         post login_path, params: { email: another_user.email, password: 'sample_password' }
@@ -151,7 +151,7 @@ RSpec.describe TweetsController, type: :request do
       it 'ユーザーリストページにリダイレクトすること' do
         aggregate_failures do
           get edit_tweet_path(tweet.id)
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to users_path
         end
       end
@@ -196,7 +196,7 @@ RSpec.describe TweetsController, type: :request do
 
     context 'ログインユーザーと異なるユーザーのツイートを修正する場合' do
       let!(:user) { create(:user) }
-      let!(:another_user) { create(:user, email:'yukko@example.com') }
+      let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
       before do
         post login_path, params: { email: another_user.email, password: 'sample_password' }
@@ -205,7 +205,7 @@ RSpec.describe TweetsController, type: :request do
       it 'ユーザーリストページにリダイレクトすること' do
         aggregate_failures do
           put tweet_path(tweet.id), params: { tweet: { title: 'new_title', content: 'new_content', user_id: user.id } }
-          expect(response).to have_http_status(302)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to users_path
         end
       end
@@ -223,15 +223,15 @@ RSpec.describe TweetsController, type: :request do
       end
 
       it 'ツイート削除に成功すること' do
-        expect{
+        expect do
           delete tweet_path(tweet.id)
-        }.to change(Tweet, :count).by(-1)
+        end.to change(Tweet, :count).by(-1)
       end
     end
 
     context 'ログインユーザーと異なるユーザーのツイートを削除する場合' do
       let!(:user) { create(:user) }
-      let!(:another_user) { create(:user, email:'yukko@example.com') }
+      let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
       before do
         post login_path, params: { email: another_user.email, password: 'sample_password' }
@@ -240,9 +240,9 @@ RSpec.describe TweetsController, type: :request do
       it 'ツイート一覧ページにリダイレクトすること' do
         aggregate_failures do
           delete tweet_path(tweet.id)
-          expect(response).to have_http_status(302)
-          expect(response).to redirect_to users_path       
-        end        
+          expect(response).to have_http_status(:found)
+          expect(response).to redirect_to users_path
+        end
       end
     end
   end
