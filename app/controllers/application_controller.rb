@@ -12,18 +12,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_user_edit_authority
-    unless current_user&.id == params[:id].to_i
-      flash[:alert] = '自分以外のユーザーは編集・削除できません'
-      redirect_to users_path
-    end
-  end
+  def check_edit_authority(user_id)
+    return if current_user&.id == user_id
 
-  def check_tweet_edit_authority
-    @tweet = Tweet.find(params[:id])
-    unless current_user&.id == @tweet.user_id
-      flash[:alert] = '自分以外のユーザーは編集・削除できません'
-      redirect_to users_path
-    end
+    flash[:alert] = '自分以外のユーザーは編集・削除できません'
+    redirect_to users_path
   end
 end
