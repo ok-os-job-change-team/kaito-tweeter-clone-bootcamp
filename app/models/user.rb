@@ -7,4 +7,5 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   has_many :tweets
+  has_many :favorites
 end
