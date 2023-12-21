@@ -1,12 +1,12 @@
 RSpec.describe Favorite do
   describe 'バリデーションのテスト' do
     context 'user_idとtweet_idが存在する場合' do
-      # let(:user) { create(:user) }
-      # let(:tweet) { create(:tweet, user_id: user.id) }
-      # let(:favorite) { build(:favorite, user_id: user.id, tweet_id: tweet.id) }
+      let(:user) { create(:user) }
+      let(:tweet) { create(:tweet, user_id: user.id) }
+      let(:favorite) { build(:favorite, user_id: user.id, tweet_id: tweet.id) }
 
       # factories/favorites.rbにassociacionを設定すれば下記の1行でいけるはずだがNG
-      let(:favorite) { create(:favorite) }
+      # let(:favorite) { create(:favorite) }
 
       it 'valid?がtrueになる' do
         expect(favorite.valid?).to eq true
