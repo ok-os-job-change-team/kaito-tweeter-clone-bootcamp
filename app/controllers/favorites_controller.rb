@@ -1,7 +1,6 @@
 class FavoritesController < ApplicationController
   # POST /tweets/:tweet_id
   def create
-    # binding.pry
     favorite = current_user.favorites.build(tweet_id: params[:tweet_id])
     favorite.save
     redirect_to tweets_path
