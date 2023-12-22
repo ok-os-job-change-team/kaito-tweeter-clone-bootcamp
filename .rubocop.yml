@@ -1,5 +1,5 @@
-# rubocop_todo.ymlを継承する場合は下のコメントアウトを外す
-# inherit_from: .rubocop_todo.yml
+# rubocop_todo.ymlを継承しない場合はコメントアウトすること
+inherit_from: .rubocop_todo.yml
 
 # 拡張ライブラリの読み込み
 require:
@@ -28,17 +28,6 @@ RSpec/ContextWording:
 RSpec/ExampleLength:
   Max: 8
 
-# 不必要にletやlet!が使われていたら指摘
-RSpec/LetSetup:
-  # 暫定的に無効化。あとで修正する！
-  Enabled: false
-
-# has_manyまたはhas_oneの関連付けが定義されている際に
-# :destroy オプションが指定されていることを確認
-Rails/HasManyOrHasOneDependent:
-  # 暫定的に無効化。あとで修正する！
-  Enabled: false
-
 # メソッドやブロックの行数を制限する
 Metrics/BlockLength:
   Exclude:
@@ -64,18 +53,6 @@ Style/Documentation:
 # frozen string literal コメントの有無を指摘する
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-# Dryなコードを書けていない箇所を指摘する
-Style/IdenticalConditionalBranches:
-  Exclude:
-    # 暫定的に無効化。あとで修正する！
-    - 'app/controllers/users_controller.rb'
-
-# ぼっち演算子の使用を推奨する箇所を指摘する
-Style/SafeNavigation:
-  Exclude:
-      # 暫定的に無効化。あとで修正する！
-    - 'app/controllers/sessions_controller.rb'
 
 # 特殊なグローバル変数の使用について指摘する
 Style/SpecialGlobalVars:
