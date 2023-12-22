@@ -2,8 +2,7 @@
 
 FactoryBot.define do
   factory :favorite do
-    # associationは使い方が分からないので一旦コメントアウト
-    # association :user
-    # association :tweet
+    user { association(:user) }
+    tweet { association(:tweet, user: user) }
   end
 end

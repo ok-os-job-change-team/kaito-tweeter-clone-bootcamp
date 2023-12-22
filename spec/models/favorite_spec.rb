@@ -1,12 +1,7 @@
 RSpec.describe Favorite do
   describe 'バリデーションのテスト' do
     context 'user_idとtweet_idが存在する場合' do
-      let(:user) { create(:user) }
-      let(:tweet) { create(:tweet, user_id: user.id) }
-      let(:favorite) { build(:favorite, user_id: user.id, tweet_id: tweet.id) }
-
-      # factories/favorites.rbにassociacionを設定すれば下記の1行でいけるはずだがNG
-      # let(:favorite) { create(:favorite) }
+      let(:favorite) { create(:favorite) }
 
       it 'valid?がtrueになる' do
         expect(favorite.valid?).to eq true
@@ -14,12 +9,11 @@ RSpec.describe Favorite do
     end
 
     context 'user_idがnilの場合' do
-      let(:user) { create(:user) }
-      let(:tweet) { create(:tweet, user_id: user.id) }
-      let(:favorite) { build(:favorite, user_id: nil, tweet_id: tweet.id) }
+      let(:favorite) { create(:favorite) }
 
       it 'valid?がfalseになり、errorsに「ユーザidを入力してください」と格納される' do
         aggregate_failures do
+          favorite.user_id = nil
           expect(favorite.valid?).to eq false
           expect(favorite.errors.full_messages).to include('ユーザーidを入力してください')
         end
@@ -27,12 +21,11 @@ RSpec.describe Favorite do
     end
 
     context 'tweet_idがnilの場合' do
-      let(:user) { create(:user) }
-      let(:tweet) { create(:tweet, user_id: user.id) }
-      let(:favorite) { build(:favorite, user_id: user.id, tweet_id: nil) }
+      let(:favorite) { create(:favorite) }
 
       it 'valid?がfalseになり、errorsに「ツイートidを入力してください」と格納される' do
         aggregate_failures do
+          favorite.tweet_id = nil
           expect(favorite.valid?).to eq false
           expect(favorite.errors.full_messages).to include('ツイートidを入力してください')
         end

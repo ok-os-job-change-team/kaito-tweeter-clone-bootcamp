@@ -81,6 +81,11 @@ Style/SafeNavigation:
 Style/SpecialGlobalVars:
   EnforcedStyle: use_perl_names
 
+# ハッシュ記法について指摘する
+Style/HashSyntax:
+  Exclude:
+    - 'spec/factories/*'
+
 # コードの行の長さを制限する
 Layout/LineLength:
   Max: 198
