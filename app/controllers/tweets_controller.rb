@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
-  before_action :check_logged_in, only: [:index, :show, :new, :create]
-  before_action -> { check_edit_authority(Tweet.find(params[:id]).user_id)}, only:[:edit, :update, :destroy]
+  before_action :check_logged_in, only: %i[index show new create]
+  before_action -> { check_edit_authority(Tweet.find(params[:id]).user_id) }, only: %i[edit update destroy]
 
   # GET /tweets
   def index
@@ -53,15 +53,14 @@ class TweetsController < ApplicationController
     @tweet = current_user.tweets.find(params[:id])
     if @tweet.destroy
       flash[:notice] = '削除に成功しました'
-      redirect_to tweets_path
     else
       flash[:alert] = '削除に失敗しました'
-      redirect_to tweets_path
     end
+    redirect_to tweets_path
   end
 
   private
-  
+
   def tweet_params
     params.require(:tweet).permit(:title, :content)
   end
