@@ -1,0 +1,64 @@
+# rubocop_todo.ymlを継承しない場合はコメントアウトすること
+inherit_from: .rubocop_todo.yml
+
+# 拡張ライブラリの読み込み
+require:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rails
+  - rubocop-rspec
+
+# Rubocopのチェック対象から除外するファイル
+AllCops:
+  Exclude:
+    - "Gemfile"
+    - "bin/**/*"
+    - "db/**/*"
+    - "log/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "config/environments/*"
+    - "config/puma.rb"
+
+# RSpecのコンテキストの記述に関する指摘を除外
+RSpec/ContextWording:
+  Enabled: false
+
+# RSpecのテストケースの長さを指摘
+RSpec/ExampleLength:
+  Max: 8
+
+# メソッドやブロックの行数を制限する
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
+# 子クラスや子モジュールを記述するスタイルを指摘する
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'test/channels/application_cable/connection_test.rb'
+    - 'test/test_helper.rb'
+
+# コード中のコメントについて指摘する
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'app/controllers/*'
+    - 'app/helpers/*'
+    - 'app/mailers/*.rb'
+    - 'app/models/*.rb'
+    - 'config/*'
+
+# frozen string literal コメントの有無を指摘する
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# 特殊なグローバル変数の使用について指摘する
+Style/SpecialGlobalVars:
+  EnforcedStyle: use_perl_names
+
+# コードの行の長さを制限する
+Layout/LineLength:
+  Max: 198
+
