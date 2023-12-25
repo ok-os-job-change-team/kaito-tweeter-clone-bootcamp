@@ -1,4 +1,6 @@
 class FavoritesController < ApplicationController
+  before_action :check_logged_in, only: %i[create destroy]
+
   # POST /tweets/:tweet_id
   def create
     favorite = current_user.favorites.build(tweet_id: params[:tweet_id])
