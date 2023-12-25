@@ -11,11 +11,11 @@ RSpec.describe Favorite do
     context 'user_idがnilの場合' do
       let(:favorite) { create(:favorite) }
 
-      it 'valid?がfalseになり、errorsに「ユーザidを入力してください」と格納される' do
+      it 'valid?がfalseになり、errorsに「Userを入力してください」と格納される' do
         aggregate_failures do
-          favorite.user_id = nil
+          favorite.user_id = nil # アソシエーションによりUserモデルごと消える
           expect(favorite.valid?).to eq false
-          expect(favorite.errors.full_messages).to include('ユーザーidを入力してください')
+          expect(favorite.errors.full_messages).to include('Userを入力してください')
         end
       end
     end
@@ -23,11 +23,11 @@ RSpec.describe Favorite do
     context 'tweet_idがnilの場合' do
       let(:favorite) { create(:favorite) }
 
-      it 'valid?がfalseになり、errorsに「ツイートidを入力してください」と格納される' do
+      it 'valid?がfalseになり、errorsに「Tweetを入力してください」と格納される' do
         aggregate_failures do
-          favorite.tweet_id = nil
+          favorite.tweet_id = nil # アソシエーションによりTweetモデルごと消える
           expect(favorite.valid?).to eq false
-          expect(favorite.errors.full_messages).to include('ツイートidを入力してください')
+          expect(favorite.errors.full_messages).to include('Tweetを入力してください')
         end
       end
     end
