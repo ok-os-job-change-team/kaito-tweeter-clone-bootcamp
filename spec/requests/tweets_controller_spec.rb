@@ -1,7 +1,7 @@
 RSpec.describe TweetsController, type: :request do
   describe 'GET /tweets' do
     let!(:user) { create(:user) }
-    let!(:tweet) { create(:tweet, user_id: user.id) }
+    let!(:tweet) { create(:tweet, user: user) }
 
     context 'ログインしているとき、ツイート一覧ページにアクセスした場合' do
       before do
@@ -32,7 +32,7 @@ RSpec.describe TweetsController, type: :request do
 
   describe 'GET /tweets/:id' do
     let!(:user) { create(:user) }
-    let!(:tweet) { create(:tweet, user_id: user.id) }
+    let!(:tweet) { create(:tweet, user: user) }
 
     context 'ログインしているとき、ツイート詳細ページにアクセスした場合' do
       before do
@@ -122,7 +122,7 @@ RSpec.describe TweetsController, type: :request do
   end
 
   describe 'GET tweets/:id/edit' do
-    let!(:tweet) { create(:tweet, user_id: user.id) }
+    let!(:tweet) { create(:tweet, user: user) }
 
     context 'ログインユーザーと同じユーザーのツイート修正ページへアクセスする場合' do
       let!(:user) { create(:user) }
@@ -159,7 +159,7 @@ RSpec.describe TweetsController, type: :request do
   end
 
   describe 'PUT /tweets/:id' do
-    let!(:tweet) { create(:tweet, user_id: user.id) }
+    let!(:tweet) { create(:tweet, user: user) }
 
     context 'ログインユーザーと同じユーザーのツイートを修正し、なおかつタイトルとツイートが正常な場合' do
       let!(:user) { create(:user) }
@@ -213,7 +213,7 @@ RSpec.describe TweetsController, type: :request do
   end
 
   describe 'DELETE /tweets' do
-    let!(:tweet) { create(:tweet, user_id: user.id) }
+    let!(:tweet) { create(:tweet, user: user) }
 
     context 'ログインユーザーと同じユーザーのツイートを削除する場合' do
       let!(:user) { create(:user) }
