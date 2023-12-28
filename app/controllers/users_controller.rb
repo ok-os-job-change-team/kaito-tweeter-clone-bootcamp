@@ -61,6 +61,18 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/:id/follows
+  def follows
+    user = User.find(params[:id])
+    @users = user.followings
+  end
+
+  # GET /users/:id/followers
+  def followers
+    user = User.find(params[:id])
+    @users = user.followers
+  end
+
   private
 
   def user_params
