@@ -8,6 +8,14 @@
   <% if session[:user_id] == user.id %>
     <%= button_to "ユーザー削除", user_path(user.id), method: :delete %>
   <% end %>
+
+  <% if current_user != user %>
+    <% if user.followed_by?(current_user) %>
+        <p><%=button_to "フォロー解除", user_relationships_path(user.id), method: :delete %></p>
+    <% else %>
+        <p><%=button_to "フォローする", user_relationships_path(user.id), method: :post %></p>
+    <% end %>
+  <% end %>
 <% end %>
 
 <div class="text-notice">
