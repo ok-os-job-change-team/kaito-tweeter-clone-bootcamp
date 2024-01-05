@@ -7,6 +7,9 @@ ja:
       tweet:
         title: タイトル
         content: ツイート
+      favorite:
+        user_id: ユーザーid
+        tweet_id: ツイートid
     errors:
       messages:
         blank: を入力してください

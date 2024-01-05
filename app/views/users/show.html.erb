@@ -22,5 +22,10 @@
 
 <% @tweets.each do |tweet| %>
   <hr>
-  <p><span>ツイート内容: </span><%=link_to tweet.content, tweet_path(tweet.id) %></p>
+  <p><span>自分のツイート: </span><%=link_to tweet.content, tweet_path(tweet.id) %></p>
+<% end %>
+
+<% @favorite_tweets.each do |tweet| %>
+  <hr>
+  <p><span>いいねしたツイート: </span><%=link_to tweet.content, tweet_path(tweet.id) %></p>
 <% end %>

@@ -7,4 +7,7 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   has_many :tweets
+  has_many :favorites
+  # <Userモデルのインスタンス>.favorite_tweetsでいいねしたツイートを取得する
+  has_many :favorite_tweets, through: :favorites, source: :tweet
 end

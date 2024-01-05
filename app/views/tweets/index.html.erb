@@ -5,6 +5,13 @@
   <p><span>メールアドレス: </span><%= tweet.user.email %></p>
   <p><span>タイトル: </span><%= tweet.title %></p>
   <p><span>ツイート: </span><%=link_to tweet.content, tweet_path(tweet.id) %></p>
+
+  <% if tweet.favorited_by?(current_user.id) %>
+    <%= button_to "いいね！解除", tweet_favorites_path(tweet.id), method: :delete %>
+  <% else %>
+    <%= button_to "いいね！登録", tweet_favorites_path(tweet.id), method: :post %>
+  <% end %>
+  <p><span>いいね！の数: </span><%= tweet.favorites.count %></p>
 <% end %>
 
 <div class="text-notice">
