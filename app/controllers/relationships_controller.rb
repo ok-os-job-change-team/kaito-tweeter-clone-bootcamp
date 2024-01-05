@@ -4,6 +4,7 @@ class RelationshipsController < ApplicationController
   # POST /users/:user_id/relationships
   def create
     follow = current_user.active_relationships.build(follower_id: params[:user_id])
+    binding.pry
     follow.save
     redirect_to users_path
   end

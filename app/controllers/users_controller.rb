@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :check_logged_in, only: %i[index show]
+  before_action :check_logged_in, only: %i[index show follows followers]
   before_action -> { check_edit_authority(params[:id].to_i) }, only: %i[edit update destroy]
 
   # GET /users
