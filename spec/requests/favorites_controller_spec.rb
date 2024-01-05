@@ -2,7 +2,7 @@ RSpec.describe FavoritesController, type: :request do
   describe 'POST /tweets/:tweet_id' do
     context 'ログインしているとき、ツイートに対していいね登録した場合' do
       let(:user) { create(:user) }
-      let(:tweet) { create(:tweet, user_id: user.id) }
+      let(:tweet) { create(:tweet, user: user) }
 
       before do
         post login_path, params: { email: user.email, password: user.password }
@@ -21,7 +21,7 @@ RSpec.describe FavoritesController, type: :request do
 
     context 'ログインしていないとき、ツイートに対していいね登録した場合' do
       let(:user) { create(:user) }
-      let(:tweet) { create(:tweet, user_id: user.id) }
+      let(:tweet) { create(:tweet, user: user) }
 
       it 'いいねの数が変化せず、ログインページにリダイレクトすること' do
         aggregate_failures do

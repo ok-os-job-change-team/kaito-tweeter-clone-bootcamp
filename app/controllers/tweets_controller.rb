@@ -53,10 +53,11 @@ class TweetsController < ApplicationController
     @tweet = current_user.tweets.find(params[:id])
     if @tweet.destroy
       flash[:notice] = '削除に成功しました'
+      redirect_to tweets_path
     else
-      flash[:alert] = '削除に失敗しました'
+      flash.now[:alert] = '削除に失敗しました'
+      render tweets_path
     end
-    redirect_to tweets_path
   end
 
   private

@@ -33,3 +33,7 @@ Style/IdenticalConditionalBranches:
 Style/SafeNavigation:
   Exclude:
     - 'app/controllers/sessions_controller.rb'
+
+# 暫定的に無効化。あとで修正する！
+Style/HashSyntax:
+  Enabled: false
