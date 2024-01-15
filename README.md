@@ -1,6 +1,6 @@
 # README
 
-## Twitterクローンアプリ
+## Hitorigoto
 
 ## 使い方
 
