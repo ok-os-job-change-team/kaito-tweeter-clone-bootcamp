@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    render :layout => "header"
+    render :layout => 'header'
   end
 
   # POST /users
