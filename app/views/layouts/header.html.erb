@@ -10,8 +10,6 @@
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
-  <body>
     <header class="navbar has-background-primary">
       <div class="navbar-brand">
         <span class="navbar-item has-text-dark">
@@ -19,17 +17,6 @@
         </span>
       </div>
     </header>
-
-    <div class="tabs is-small has-background-info">
-      <ul>
-        <li class="is-active"><a>マイページ</a></li>
-        <li><a>ひとりごと投稿</a></li>
-        <li><a>ひとりごと一覧</a></li>
-        <li><a>ユーザーリスト</a></li>
-        <li><a>プロフィール編集</a></li>
-        <li><a>ログアウト</a></li>
-      </ul>
-    </div>
 
     <div class="container">
       <%= yield %>
