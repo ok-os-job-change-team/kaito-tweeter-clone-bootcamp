@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Tubuyaki</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -10,8 +11,6 @@
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
-  <body>
     <header class="navbar" style="background-color: #a7c957">
       <div class="navbar-brand">
         <span class="navbar-item is-size-3" style="color: #386641">
@@ -19,17 +18,6 @@
         </span>
       </div>
     </header>
-
-    <div class="tabs is-small" style="background-color: #f2e8cf">
-      <ul>
-        <li class="is-active"><a>マイページ</a></li>
-        <li><a>ひとりごと投稿</a></li>
-        <li><a>ひとりごと一覧</a></li>
-        <li><a>ユーザーリスト</a></li>
-        <li><a>プロフィール編集</a></li>
-        <li><a>ログアウト</a></li>
-      </ul>
-    </div>
 
     <div class="container">
       <%= yield %>
