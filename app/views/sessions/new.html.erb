@@ -1,4 +1,4 @@
-<section class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: calc(100vh - 3.25rem);">
+<section class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: calc(100vh - 64px);">
   <div class="box" style="width: 600px;">
     <!-- boxのタイトル -->
     <div class="content">
@@ -28,13 +28,13 @@
 
       <div class="block">
         <div class="control">
-          <%= f.submit 'ログイン', class: "button is-link has-background-light is-fullwidth" %>
+          <%= f.submit 'ログイン', class: "button is-link is-fullwidth", style: "background-color: #6a994e"%>
         </div>
       </div>
 
       <div class="block">
         <div class="control">
-          <%= link_to "会員登録がまだの方はこちら", new_user_path, class: "button is-link has-background-link is-fullwidth" %>
+          <%= link_to "会員登録がまだの方はこちら", new_user_path, class: "button is-link is-fullwidth", style: "background-color: #bc4749" %>
         </div>
       </div>
     <% end %>

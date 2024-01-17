@@ -1,5 +1,4 @@
-
-<section class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: calc(100vh - 3.25rem);">
+<section class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: calc(100vh - 64px);">
   <div class="box" style="width: 600px;">
     <div class="content">
       <div class="block">
@@ -27,7 +26,7 @@
 
       <div class="block">
         <div class="control">
-          <%= f.submit '新規会員登録', class: "button is-link has-background-light is-fullwidth" %>
+          <%= f.submit '新規会員登録', class: "button is-link is-fullwidth", style: "background-color: #6a994e" %>
         </div>
       </div>
     <% end %>
@@ -46,33 +45,3 @@
     </div>
   </div>
 </section>
-
-
-<!--
-<%= form_with model: @user, url: users_path, local: true, data: { turbo: "false" } do |form| %>
-  <div>
-    <h3>
-      <%= flash[:alert] %> 
-    </h3>
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-
-  <table>
-    <tr>
-      <th>メールアドレス</th>
-      <td><%= form.text_field :email %></td>
-    </tr>
-    <tr>
-      <th>パスワード</th>
-      <td><%= form.text_field :password %></td>
-    </tr>
-    <tr>
-      <td><%= form.submit '送信' %></td>
-    </tr>
-  </table>
-<% end %>
--->

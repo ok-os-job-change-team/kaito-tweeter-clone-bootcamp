@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       redirect_to '/users'
     else
       flash.now[:alert] = '登録に失敗しました'
-      render '/users/new'
+      render '/users/new', layout: 'header'
     end
   end
 
