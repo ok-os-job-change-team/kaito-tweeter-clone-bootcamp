@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   layout 'header'
-  
+
   def new; end
 
   def create
