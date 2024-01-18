@@ -18,16 +18,21 @@
           Hitorigoto
         </span>
       </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <button class="button is-rounded"><%= link_to t("ログアウト"), logout_path, data: { turbo_method: :delete } %></button>
+        </div>
+      </div>
     </header>
 
     <div class="tabs is-small" style="background-color: #f2e8cf">
       <ul>
-        <li class="is-active"><a>マイページ</a></li>
-        <li><a>ひとりごと投稿</a></li>
-        <li><a>ひとりごと一覧</a></li>
-        <li><a>ユーザーリスト</a></li>
-        <li><a>プロフィール編集</a></li>
-        <li><a>ログアウト</a></li>
+        <li><a href="<%= user_path(current_user.id) %>">マイページ</a></li>
+        <li><a href="<%= new_tweet_path() %>">ひとりごと投稿</a></li>
+        <li><a href="<%= tweets_path() %>">ひとりごと一覧</a></li>
+        <li><a href="<%= users_path() %>">ユーザーリスト</a></li>
+        <li><a href="<%= edit_user_path(current_user.id) %>">プロフィール編集</a></li>
       </ul>
     </div>
 
