@@ -45,7 +45,7 @@ RSpec.describe SessionsController, type: :request do
       it 'ログアウトに成功すること' do
         aggregate_failures do
           delete logout_path
-          expect(response).to have_http_status(:found)
+          expect(response).to have_http_status(:see_other)
           expect(response).to redirect_to login_path
           expect(session[:user_id]).to eq nil
         end
