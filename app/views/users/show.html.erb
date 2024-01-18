@@ -1,24 +1,66 @@
-<h1>ユーザー詳細</h1>
-
-<h3>ユーザー名</h3>
-<p><%= @user.email %></p>
-<h3>アカウント作成日</h3>
-<p><%= @user.created_at %></p>
-<h3>アカウント更新日</h3>
-<p><%= @user.updated_at %></p>
-
-<% if session[:user_id] == @user.id %>
-  <%= button_to "ユーザー編集", edit_user_path(@user.id), method: :get %>
-<% end %>
-
-<% if session[:user_id] %>
- <p>現在ログインしているユーザーのid: <%= session[:user_id] %></p>
- <%= button_to "ログアウト", logout_path, method: :delete %>
-<% end %>
-
-<h4>
-<%= button_to "ユーザーリスト", users_path, method: :get %>
-</h4>
+<main class="columns p-1 m-0">
+  <!-- ユーザー情報 -->
+  <div class="column is-two-fifths">
+    <div class="box">
+      <article class="media">
+        <div class="media-content">
+          <div class="tags are-large mb-2">
+            <span class="tag is-white is-size-4 has-text-weight-semibold" style="color: #386641">
+              <p>user_name</p>
+            </span>
+            <span class="tag is-white is-size-5 has-text-weight-semibold" style="color: #7d7d7d">
+              <p><%= @user.email %></p>
+            </span>
+          </div>
+          <div class="content">
+            <nav class="level">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading is-size-7">投稿</p>
+                  <p class="title is-size-4" ><%= @user.tweets.count %></p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading is-size-7">フォロー</p>
+                  <p class="title is-size-4">***</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading is-size-7">フォロワー</p>
+                  <p class="title is-size-4">***</p>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>  
+      </article>
+    </div>
+  </div>
+  <!-- ユーザーの投稿 -->
+  <div class="column">
+    <div class="box">
+      <article class="media">
+        <div class="media-content">
+          <div class="tags are-medium mb-1">
+            <span class="tag is-white is-size-5 has-text-weight-semibold" style="color: #386641">
+              <p>user_name</p>
+            </span>
+            <span class="tag is-white is-size-6 has-text-weight-semibold" style="color: #7d7d7d">
+              <p>usesr_id</p>
+            </span>
+          </div>
+          <div class="content pl-4">
+            <p class="content mb-1 is-size-6">created_time</p>               
+            <p class="content mb-1 is-size-5">title</p>
+            <p class="content mb-1 is-size-5" >content</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
 
 <% @tweets.each do |tweet| %>
   <hr>
