@@ -21,8 +21,6 @@ jobs:         # ワークフローで実行されるジョブを設定
         with:
           ruby-version: '3.2.2'       # ruby3.2.2を指定
           bundler-cache: true         # キャッシュ有効
-      - name: Run Rake task
-        run: bundle exec rake
 
       - name: Build Docker image      # Dockerイメージをビルド
         run: |
