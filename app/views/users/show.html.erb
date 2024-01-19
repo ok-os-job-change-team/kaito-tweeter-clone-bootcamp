@@ -41,33 +41,28 @@
   <!-- ユーザーの投稿 -->
   <div class="column">
     <div class="box">
-      <article class="media">
+      <div class="content m-0 pl-4">
+        <h3>投稿</h3>
+      </div>
+      <% @tweets.each do |tweet| %>
+      <article class="media m-0 p-0">
         <div class="media-content">
           <div class="tags are-medium mb-1">
             <span class="tag is-white is-size-5 has-text-weight-semibold" style="color: #386641">
               <p>user_name</p>
             </span>
             <span class="tag is-white is-size-6 has-text-weight-semibold" style="color: #7d7d7d">
-              <p>usesr_id</p>
+              <p><%= tweet.user.email %></p> </p>
             </span>
           </div>
           <div class="content pl-4">
-            <p class="content mb-1 is-size-6">created_time</p>               
-            <p class="content mb-1 is-size-5">title</p>
-            <p class="content mb-1 is-size-5" >content</p>
+            <p class="content mb-1 is-size-6"><%= tweet.updated_at.strftime("%Y年%_m月%_d日 %_H:%M") %></p>           
+            <p class="content mb-1 is-size-5 is-underlined"><%= tweet.title %></p>
+            <p class="content mb-1 is-size-5" ><%=link_to tweet.content, tweet_path(tweet.id) %></p>
           </div>
         </div>
       </article>
+      <% end %>
     </div>
   </div>
 </main>
-
-<% @tweets.each do |tweet| %>
-  <hr>
-  <p><span>自分のツイート: </span><%=link_to tweet.content, tweet_path(tweet.id) %></p>
-<% end %>
-
-<% @favorite_tweets.each do |tweet| %>
-  <hr>
-  <p><span>いいねしたツイート: </span><%=link_to tweet.content, tweet_path(tweet.id) %></p>
-<% end %>
