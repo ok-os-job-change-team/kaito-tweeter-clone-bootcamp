@@ -20,14 +20,14 @@
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item">
         <% if session[:user_id] %>
+        <div class="navbar-item">
           <div class="tag is-medium has-text-weight-semibold px-5" style="background-color: #a7c957">
             <p><%= current_user.email %>でログイン中</p>
           </div>
-          <button class="button is-rounded has-text-weight-semibold"><%= link_to t("ログアウト"), logout_path, data: { turbo_method: :delete } %></button>
-        <% end %>
+          <p><%= button_to('ログアウト', logout_path, method: :delete, class: 'button is-light') %></p>
         </div>
+        <% end %>
       </div>
     </header>
 
