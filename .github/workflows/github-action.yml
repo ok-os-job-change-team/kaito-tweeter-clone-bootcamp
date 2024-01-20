@@ -13,14 +13,8 @@ jobs:         # ワークフローで実行されるジョブを設定
     timeout-minutes: 10               # jobを実行する最長時間の設定[min]
 
     steps:
-      - name: Checkout code           # actionのバージョンを指定
+      - name: Checkout code           # リポジトリからコードを取得
         uses: actions/checkout@v3
-      
-      - name: Setup Ruby              # actionのruby実行環境を指定
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2.2'       # ruby3.2.2を指定
-          bundler-cache: true         # キャッシュ有効
 
       - name: Build Docker image      # Dockerイメージをビルド
         run: |
