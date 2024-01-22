@@ -1,19 +1,59 @@
-<h1>ツイート一覧</h1>
+<main class="columns p-1 m-0">
+  <!-- メニュー -->
+  <div class="column is-one-third">
+    <div class="box">
+      <aside class="menu">
+        <div class="menu-label is-size-6 has-text-weight-semibold has-text-black">
+          <p>＜ひとりごと一覧メニュー＞</p>
+        </div>
+        <ul class="menu-list">
+          <li><a href="<%= tweets_path() %>">タイムライン</a></li>
+          <li><a href="#">いいねした投稿</a></li>
+        </ul>
+      </aside>
+    </div>
+    <div class="lavel mt-5">
+      <% if flash[:notice] %>
+        <div class="notification is-success is-light has-text-centered"><%= flash[:notice] %></div>
+      <% elsif flash[:alert] %>
+        <div class="notification is-danger is-light has-text-centered"><%= flash[:alert] %></div>
+      <% end %>
+    </div>
+  </div>
 
-<% @tweets.each do |tweet| %>
-  <hr>
-  <p><span>メールアドレス: </span><%= tweet.user.email %></p>
-  <p><span>タイトル: </span><%= tweet.title %></p>
-  <p><span>ツイート: </span><%=link_to tweet.content, tweet_path(tweet.id) %></p>
-
-  <% if tweet.favorited_by?(current_user.id) %>
-    <%= button_to "いいね！解除", tweet_favorites_path(tweet.id), method: :delete %>
-  <% else %>
-    <%= button_to "いいね！登録", tweet_favorites_path(tweet.id), method: :post %>
-  <% end %>
-  <p><span>いいね！の数: </span><%= tweet.favorites.count %></p>
-<% end %>
-
-<div class="text-notice">
-  <%= flash[:notice] %>
-</div>
+  <!-- タイムライン -->
+  <div class="column">
+    <div class="box">
+      <div class="content m-0 pl-4">
+        <h3>タイムライン</h3>
+      </div>
+      <% @tweets.each do |tweet| %>
+      <article class="media m-0 p-0">
+        <div class="media-content">
+          <div class="tags are-medium mb-1">
+            <span class="tag is-white is-size-5 has-text-weight-semibold" style="color: #386641">
+              <p>user_name</p>
+            </span>
+            <span class="tag is-white is-size-6 has-text-weight-semibold" style="color: #7d7d7d">
+              <p><%= tweet.user.email %></p>
+            </span>
+          </div>
+          <div class="block pl-4 mb-1">
+            <p class="content mb-1 is-size-6"><%= tweet.updated_at.strftime("%Y年%_m月%_d日 %_H:%M") %></p>           
+            <p class="content mb-1 is-size-5 is-underlined"><%= tweet.title %></p>
+            <p class="content mb-1 is-size-5" ><%=link_to tweet.content, tweet_path(tweet.id) %></p>
+          </div>
+          <div class="content is-mobile pl-4 mb-3">
+            <!-- if tweet.favorited_by?(current_user.id) -->
+            <% if tweet.favorited_by?(tweet.favorites, current_user.id) %>
+              <%= button_to "いいね #{tweet.favorites.size}", tweet_favorites_path(tweet.id), method: :delete, class: "button has-text-weight-semibold has-text-white", style: "background-color: #6a994e" %>
+            <% else %>
+              <%= button_to "いいね #{tweet.favorites.size}", tweet_favorites_path(tweet.id), method: :post, class: "button is-outlined has-text-weight-semibold", style: "color: #6a994e; border-color: #6a994e;" %>
+            <% end %>
+          </div>
+        </div>
+      </article>
+      <% end %>
+    </div>
+  </div>
+</main>
