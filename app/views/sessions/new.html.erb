@@ -1,17 +1,53 @@
-<h1>ログインページ</h1>
+<section class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: calc(100vh - 64px);">
+  <div class="box" style="width: 600px;">
+    <!-- boxのタイトル -->
+    <div class="content">
+      <div class="block">
+        <h2>ログイン</h2>
+        <div class="has-background-grey-lighter" style="height: 2px;"></div>
+      </div>
+    </div>
 
-<%= form_with url: login_path, local: true, data: { turbo: "false" } do |f| %>
-  <%= f.label :メールアドレス %>
-  <%= f.email_field :email %>
-  <%= f.label :パスワード %>
-  <%= f.password_field :password %>
-  <%= f.submit 'ログイン' %>
-<% end %>
+    <!-- ログインフォーム -->
+    <%= form_with url: login_path, local: true, data: { turbo: "false" } do |f| %>
+      <div class="field">
+        <label class="label">メールアドレス</label>
+        <div class="control">
+          <%= f.email_field :email, class: "input is-black", placeholder: "sample@example.com" %>
+        </div>
+      </div>
 
-<h4>
-<%= button_to "新規ユーザー登録はこちら", new_user_path, method: :get %>
-</h4>
+      <div class="block">
+        <div class="field">
+          <label class="label">パスワード</label>
+          <div class="control">
+            <%= f.password_field :password, class: "input is-black", placeholder: "********" %>
+          </div>
+        </div>
+      </div>
 
-<h4>
-<%= flash[:alert] %> 
-</h4>
+      <div class="block">
+        <div class="control">
+          <%= f.submit 'ログイン', class: "button is-link is-fullwidth", style: "background-color: #6a994e"%>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="control">
+          <%= link_to "会員登録がまだの方はこちら", new_user_path, class: "button is-link is-fullwidth", style: "background-color: #bc4749" %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- フラッシュメッセージ -->
+    <div class="mt-5">
+      <div class="levlel">
+        <% if flash[:alert] %>
+          <div class="notification is-danger is-light has-text-centered">
+            <%= flash[:alert] %> 
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

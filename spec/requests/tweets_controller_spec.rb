@@ -64,16 +64,16 @@ RSpec.describe TweetsController, type: :request do
   describe 'GET /tweets/new' do
     let!(:user) { create(:user) }
 
-    context 'ログインしているとき、ツイート投稿ページにアクセスした場合' do
+    context 'ログインしているとき、ひとりごと投稿ページにアクセスした場合' do
       before do
         post login_path, params: { email: user.email, password: user.password }
       end
 
-      it 'リクエストが成功し、ツイート投稿ページが表示されること' do
+      it 'リクエストが成功し、ひとりごと投稿ページが表示されること' do
         aggregate_failures do
           get new_tweet_path
           expect(response.status).to eq 200
-          expect(response.body).to include 'ツイート投稿'
+          expect(response.body).to include 'ひとりごと投稿'
         end
       end
     end

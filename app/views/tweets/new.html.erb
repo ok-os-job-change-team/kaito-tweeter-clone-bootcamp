@@ -1,28 +1,56 @@
-<h1>ツイート投稿</h1>
+<section class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: calc(100vh - 105px);">
+  <div class="box" style="width: 600px;">
+    <!-- boxのタイトル -->
+    <div class="content">
+      <div class="block">
+        <h2>ひとりごと投稿</h2>
+        <div class="has-background-grey-lighter" style="height: 2px;"></div>
+      </div>
+    </div>
 
-<%= form_with model: @tweet, url: tweets_path, local: true, data: { turbo: "false" } do |form| %>
-  <div>
-    <h3>
-      <%= flash[:alert] %> 
-    </h3>
-      <ul>
-      <% @tweet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+    <!-- 投稿フォーム -->
+    <%= form_with model: @tweet, url: tweets_path, data: { turbo: "false" } do |f| %>
+      <div class="field">
+        <label class="label">タイトル</label>
+        <div class="control">
+          <%= f.text_field :title, class: "input is-black", placeholder: "20字以内" %>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="field">
+          <label class="label">本文</label>
+          <div class="control">
+            <%= f.text_area :content, class: "textarea is-black", placeholder: "140字以内", rows: 4 %></td>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="control">
+          <%= f.submit '送信', class: "button is-link is-fullwidth", style: "background-color: #6a994e" %>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="control">
+          <%= link_to "キャンセル", user_path(current_user.id), class: "button is-link is-fullwidth", style: "background-color: #bc4749" %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- フラッシュメッセージ -->
+    <div class="mt-5">
+      <div class="levlel">
+        <% if flash[:alert] %>
+          <div class="notification is-danger is-light has-text-centered">
+            <%= flash[:alert] %> 
+            <% @tweet.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <table>
-    <tr>
-      <th>タイトル</th>
-      <td><%= form.text_field :title %></td>
-    </tr>
-    <tr>
-      <th>ツイート</th>
-      <td><%= form.text_area :content %></td>
-    </tr>
-    <tr>
-      <td><%= form.submit '送信' %></td>
-    </tr>
-  </table>
-<% end %>
+</section>

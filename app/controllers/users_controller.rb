@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    render :layout => 'header'
   end
 
   # POST /users
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
       redirect_to '/users'
     else
       flash.now[:alert] = '登録に失敗しました'
-      render :new
+      render '/users/new', layout: 'header'
     end
   end
 

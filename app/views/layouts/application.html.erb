@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TwitterCloneApp</title>
+    <title>Tubuyaki</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <header class="navbar" style="background-color: #a7c957">
+      <div class="navbar-brand">
+        <span class="navbar-item is-size-3 has-text-weight-semibold" style="color: #386641">
+          Hitorigoto
+        </span>
+      </div>
+
+      <div class="navbar-end">
+        <% if session[:user_id] %>
+        <div class="navbar-item">
+          <div class="tag is-medium has-text-weight-semibold px-5" style="background-color: #a7c957">
+            <p><%= current_user.email %>でログイン中</p>
+          </div>
+          <p><%= button_to('ログアウト', logout_path, method: :delete, class: 'button is-light') %></p>
+        </div>
+        <% end %>
+      </div>
+    </header>
+
+    <div class="tabs is-small has-text-weight-semibold" style="background-color: #f2e8cf">
+      <ul>
+        <li><a href="<%= user_path(current_user.id) %>">マイページ</a></li>
+        <li><a href="<%= new_tweet_path() %>">ひとりごと投稿</a></li>
+        <li><a href="<%= tweets_path() %>">ひとりごと一覧</a></li>
+        <li><a href="<%= users_path() %>">ユーザーリスト</a></li>
+        <li><a href="<%= edit_user_path(current_user.id) %>">プロフィール編集</a></li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

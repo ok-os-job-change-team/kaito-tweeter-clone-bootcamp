@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tubuyaki</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+    <header class="navbar" style="background-color: #a7c957">
+      <div class="navbar-brand">
+        <span class="navbar-item is-size-3 has-text-weight-semibold" style="color: #386641">
+          Hitorigoto
+        </span>
+      </div>
+    </header>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
