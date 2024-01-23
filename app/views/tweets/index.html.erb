@@ -44,8 +44,7 @@
             <p class="content mb-1 is-size-5" ><%=link_to tweet.content, tweet_path(tweet.id) %></p>
           </div>
           <div class="content is-mobile pl-4 mb-3">
-            <!-- if tweet.favorited_by?(current_user.id) -->
-            <% if tweet.favorited_by?(tweet.favorites, current_user.id) %>
+            <% if tweet.favorited_by?(current_user.id) %>
               <%= button_to "いいね #{tweet.favorites.size}", tweet_favorites_path(tweet.id), method: :delete, class: "button has-text-weight-semibold has-text-white", style: "background-color: #6a994e" %>
             <% else %>
               <%= button_to "いいね #{tweet.favorites.size}", tweet_favorites_path(tweet.id), method: :post, class: "button is-outlined has-text-weight-semibold", style: "color: #6a994e; border-color: #6a994e;" %>

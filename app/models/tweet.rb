@@ -8,11 +8,7 @@ class Tweet < ApplicationRecord
   belongs_to :user
   has_many :favorites
 
-  # def favorited_by?(target_user_id)
-  #   favorites.where(user_id: target_user_id).exists?
-  # end
-
-  def favorited_by?(target_favorite_id, target_user_id)
-    target_favorite_id.pluck(:user_id).include?(target_user_id)
+  def favorited_by?(target_user_id)
+    favorites.where(user_id: target_user_id).exists?
   end
 end
