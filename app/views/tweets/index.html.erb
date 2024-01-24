@@ -24,8 +24,9 @@
   <!-- タイムライン -->
   <div class="column">
     <div class="box">
-      <div class="content m-0 pl-4 ">
+      <div class="content m-0 pl-4">
         <h4>タイムライン</h4>
+        <div class="has-background-grey-lighter" style="height: 2px;"></div>
       </div>
       <% @tweets.each do |tweet| %>
       <article class="media m-0 p-0">
@@ -43,7 +44,7 @@
             <p class="content mb-0 is-size-6 is-underlined"><%= tweet.title %></p>
             <p class="content mb-0 is-size-6" ><%=link_to tweet.content, tweet_path(tweet.id) %></p>
           </div>
-          <div class="content is-mobile pl-4 mb-3">
+          <div class="content is-mobile pl-4 mb-2">
             <% if tweet.favorited_by?(current_user.id) %>
               <%= button_to "いいね #{tweet.favorites.size}", tweet_favorites_path(tweet.id), method: :delete, class: "button is-small has-text-weight-semibold has-text-white", style: "background-color: #6a994e" %>
             <% else %>
