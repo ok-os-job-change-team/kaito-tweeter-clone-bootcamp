@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime 'updated_at', null: false
   end
   create_table 'tweets', charset: 'utf8mb4', force: :cascade do |t|
-    t.integer 'user_id', null: false
+    t.bigint 'user_id', null: false
     t.string 'title', null: false, length: { maximum: 20 }
     t.string 'content', null: false, length: { maximum: 140 }
     t.datetime 'created_at', null: false
@@ -32,4 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer 'following_id', null: false
     t.integer 'follower_id', null: false
   end
+
+  add_foreign_key "tweets", "users"
 end
