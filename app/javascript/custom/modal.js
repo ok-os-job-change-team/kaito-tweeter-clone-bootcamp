@@ -7,15 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // ×ボタンでモーダルウィンドウを閉じる
-    const $close_1 = document.getElementById('close-modal-1');
-    $close_1.addEventListener('click', () => {
+    const $close_delete = document.getElementById('close-modal-delete');
+    $close_delete.addEventListener('click', () => {
       const $modal = document.getElementById('modal-window');
       $modal.classList.remove('is-active');
     });
 
     // いいえボタンでモーダルウィンドウを閉じる
-    const $close_2 = document.getElementById('close-modal-2');
-    $close_2.addEventListener('click', () => {
+    const $close_cancel = document.getElementById('close-modal-cancel');
+    $close_cancel.addEventListener('click', () => {
       const $modal = document.getElementById('modal-window');
       $modal.classList.remove('is-active');
     });
