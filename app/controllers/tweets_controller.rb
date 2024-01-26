@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :check_logged_in, only: %i[index show new create]
+  before_action :check_logged_in, only: %i[index show new create favorite]
   before_action -> { check_edit_authority(Tweet.find(params[:id]).user_id) }, only: %i[edit update destroy]
 
   # GET /tweets
@@ -58,6 +58,11 @@ class TweetsController < ApplicationController
       flash.now[:alert] = '削除に失敗しました'
       render tweets_path
     end
+  end
+
+  # GET /tweets/favorite
+  def favorite
+    @tweets = Tweet.eager_load(:user, :favorites).where(favorites: { user_id: current_user.id })
   end
 
   private
