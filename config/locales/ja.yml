@@ -6,10 +6,11 @@ ja:
         password: パスワード
       tweet:
         title: タイトル
-        content: ツイート
+        content: 本文
       favorite:
         user_id: ユーザーid
         tweet_id: ツイートid
     errors:
       messages:
         blank: を入力してください
+        too_long: が長すぎます
