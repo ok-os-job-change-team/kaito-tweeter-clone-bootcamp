@@ -9,6 +9,6 @@ class Tweet < ApplicationRecord
   has_many :favorites
 
   def favorited_by?(target_user_id)
-    favorites.where(user_id: target_user_id).exists?
+    favorites.any? { |favorite| favorite.user_id == target_user_id }
   end
 end

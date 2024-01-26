@@ -4,7 +4,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.all.preload(:user, :favorites)
   end
 
   # GET /tweets/:id
