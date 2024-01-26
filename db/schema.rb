@@ -18,14 +18,18 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime 'updated_at', null: false
   end
   create_table 'tweets', charset: 'utf8mb4', force: :cascade do |t|
-    t.integer 'user_id', null: false
+    t.bigint 'user_id', null: false
     t.string 'title', null: false, length: { maximum: 20 }
     t.string 'content', null: false, length: { maximum: 140 }
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
   create_table 'favorites', charset: 'utf8mb4', force: :cascade do |t|
-    t.integer 'user_id', null: false
-    t.integer 'tweet_id', null: false
+    t.bigint 'user_id', null: false
+    t.bigint 'tweet_id', null: false
   end
+
+  add_foreign_key "tweets", "users"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "favorites", "tweets"
 end
