@@ -251,7 +251,7 @@ RSpec.describe TweetsController, type: :request do
     let!(:user) { create(:user) }
     let!(:another_user) { create(:user, email: 'hoge@example.com') }
     let!(:tweet) { create(:tweet, user: user) }
-    let!(:another_tweet) { create(:tweet, user: another_user, title: 'another_title', content: 'another_content' ) }
+    let!(:another_tweet) { create(:tweet, user: another_user, title: 'another_title', content: 'another_content') }
 
     context 'ログインしているとき、いいねしたひとりごとページにアクセスした場合' do
       before do
