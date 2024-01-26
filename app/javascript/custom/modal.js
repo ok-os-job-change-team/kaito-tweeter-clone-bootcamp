@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
     // モーダルウィンドウを表示
     const $show = document.getElementById('logout-button');
     $show.addEventListener('click', () => {
