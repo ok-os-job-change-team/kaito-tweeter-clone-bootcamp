@@ -5,10 +5,10 @@ class FavoritesController < ApplicationController
   def create
     favorite = current_user.favorites.build(tweet_id: params[:tweet_id])
     if favorite.save
-      flash[:notice] = '解除に成功しました'
+      flash[:notice] = 'いいね登録に成功しました'
       redirect_to tweets_path
     else
-      flash.now[:alert] = '解除に失敗しました'
+      flash.now[:alert] = 'いいね登録に失敗しました'
       render tweets_path
     end
   end
@@ -17,10 +17,10 @@ class FavoritesController < ApplicationController
   def destroy
     favorite = Favorite.find_by(tweet_id: params[:tweet_id], user_id: current_user.id)
     if favorite.destroy
-      flash[:notice] = '解除に成功しました'
+      flash[:notice] = 'いいね解除に成功しました'
       redirect_to tweets_path
     else
-      flash.now[:alert] = '解除に失敗しました'
+      flash.now[:alert] = 'いいね解除に失敗しました'
       render tweets_path
     end
   end
