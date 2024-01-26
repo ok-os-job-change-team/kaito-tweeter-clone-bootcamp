@@ -2,6 +2,7 @@ ja:
   activerecord:
     attributes:
       user:
+        name: アカウント名
         email: メールアドレス
         password: パスワード
       tweet:
@@ -13,3 +14,4 @@ ja:
     errors:
       messages:
         blank: を入力してください
+        too_long: が長すぎます
