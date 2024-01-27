@@ -1,29 +1,57 @@
-<h1>プロフィール編集</h1>
+<section class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: calc(100vh - 128px);">
+  <div class="box" style="width: 600px;">
+    <!-- boxのタイトル -->
+    <div class="content">
+      <div class="block">
+        <h2>アカウント編集</h2>
+        <div class="has-background-grey-lighter" style="height: 2px;"></div>
+      </div>
+    </div>
 
-<%= form_with model: @user, url: user_path, local: true, data: { turbo: "false" } do |form| %>
+    <!-- アカウント編集フォーム -->
+    <%= form_with model: @user, url: user_path, data: { turbo: "false" } do |f| %>
+      <div class="field">
+        <label class="label">メールアドレス</label>
+        <div class="control">
+          <%= f.email_field :email, class: "input is-black", placeholder: "sample@example.com" %>
+        </div>
+      </div>
+      <div class="block">
+        <div class="field">
+          <label class="label">パスワード</label>
+          <div class="control">
+            <%= f.password_field :password, class: "input is-black", placeholder: "********" %>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <%= f.submit '変更する', class: "button is-fullwidth has-text-white", style: "background-color: #6a994e" %>
+      </div>
+      <div class="block">
+        <%= link_to "キャンセル", user_path(current_user.id), class: "button is-fullwidth has-text-white", style: "background-color: #bc4749" %>
+      </div>
+    <% end %>
 
-  <div>
-    <h3>
-      <%= flash[:alert] %> 
-    </h3>
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+    <!-- アカウント編集ボタン -->
+    <div class="block pt-5">
+      <div class="has-background-grey-lighter" style="height: 2px;"></div>
+    </div>
+    <div class="block">
+      <%= button_to "アカウント削除", user_path(current_user.id), method: :delete, class: "button is-fullwidth is-black" %>
+    </div>
+
+    <!-- フラッシュメッセージ -->
+    <div class="mt-5">
+      <div class="levlel">
+        <% if flash[:alert] %>
+          <div class="notification is-danger is-light has-text-centered">
+            <%= flash[:alert] %> 
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <table>
-    <tr>
-      <th>メールアドレス</th>
-      <td><%= form.text_field :email %></td>
-    </tr>
-    <tr>
-      <th>パスワード</th>
-      <td><%= form.password_field :password %></td>
-    </tr>
-    <tr>
-      <td><%= form.submit '変更' %></td>
-    </tr>
-  </table>
-<% end %>
+</section>
