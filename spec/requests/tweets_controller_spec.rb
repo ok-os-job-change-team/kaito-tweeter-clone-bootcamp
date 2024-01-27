@@ -124,23 +124,23 @@ RSpec.describe TweetsController, type: :request do
   describe 'GET tweets/:id/edit' do
     let!(:tweet) { create(:tweet, user: user) }
 
-    context 'ログインユーザーと同じユーザーのツイート修正ページへアクセスする場合' do
+    context 'ログインユーザーと同じユーザーのひとりごと編集ページへアクセスする場合' do
       let!(:user) { create(:user) }
 
       before do
         post login_path, params: { email: user.email, password: 'sample_password' }
       end
 
-      it 'ツイート修正ページに遷移すること' do
+      it 'ひとりごと編集ページに遷移すること' do
         aggregate_failures do
           get edit_tweet_path(tweet.id)
           expect(response.status).to eq 200
-          expect(response.body).to include 'ツイート修正'
+          expect(response.body).to include 'ひとりごと編集'
         end
       end
     end
 
-    context 'ログインユーザーと異なるユーザーのツイート修正ページへアクセスする場合' do
+    context 'ログインユーザーと異なるユーザーのひとりごと編集ページへアクセスする場合' do
       let!(:user) { create(:user) }
       let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
@@ -161,14 +161,14 @@ RSpec.describe TweetsController, type: :request do
   describe 'PUT /tweets/:id' do
     let!(:tweet) { create(:tweet, user: user) }
 
-    context 'ログインユーザーと同じユーザーのツイートを修正し、なおかつタイトルとツイートが正常な場合' do
+    context 'ログインユーザーと同じユーザーのひとりごとを修正し、なおかつタイトルと本文が正常な場合' do
       let!(:user) { create(:user) }
 
       before do
         post login_path, params: { email: user.email, password: 'sample_password' }
       end
 
-      it 'ツイートの修正に成功すること' do
+      it 'ひとりごとの修正に成功すること' do
         aggregate_failures do
           put tweet_path(tweet.id), params: { tweet: { title: 'new_title', content: 'new_content', user_id: user.id } }
           expect(tweet.reload.title).to eq 'new_title'
@@ -177,7 +177,7 @@ RSpec.describe TweetsController, type: :request do
       end
     end
 
-    context 'ログインユーザーと同じユーザーのツイートを修正し、なおかつタイトルとツイートが異常で、バリデーションエラーとなる場合' do
+    context 'ログインユーザーと同じユーザーのひとりごとを修正し、なおかつタイトルと本文が異常で、バリデーションエラーとなる場合' do
       let!(:user) { create(:user) }
 
       before do
@@ -194,7 +194,7 @@ RSpec.describe TweetsController, type: :request do
       end
     end
 
-    context 'ログインユーザーと異なるユーザーのツイートを修正する場合' do
+    context 'ログインユーザーと異なるユーザーのひとりごとを修正する場合' do
       let!(:user) { create(:user) }
       let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
@@ -215,21 +215,21 @@ RSpec.describe TweetsController, type: :request do
   describe 'DELETE /tweets' do
     let!(:tweet) { create(:tweet, user: user) }
 
-    context 'ログインユーザーと同じユーザーのツイートを削除する場合' do
+    context 'ログインユーザーと同じユーザーのひとりごとを削除する場合' do
       let!(:user) { create(:user) }
 
       before do
         post login_path, params: { email: user.email, password: 'sample_password' }
       end
 
-      it 'ツイート削除に成功すること' do
+      it 'ひとりごと削除に成功すること' do
         expect do
           delete tweet_path(tweet.id)
         end.to change(Tweet, :count).by(-1)
       end
     end
 
-    context 'ログインユーザーと異なるユーザーのツイートを削除する場合' do
+    context 'ログインユーザーと異なるユーザーのひとりごとを削除する場合' do
       let!(:user) { create(:user) }
       let!(:another_user) { create(:user, email: 'yukko@example.com') }
 
@@ -237,7 +237,7 @@ RSpec.describe TweetsController, type: :request do
         post login_path, params: { email: another_user.email, password: 'sample_password' }
       end
 
-      it 'ツイート一覧ページにリダイレクトすること' do
+      it 'ひとりごと一覧ページにリダイレクトすること' do
         aggregate_failures do
           delete tweet_path(tweet.id)
           expect(response).to have_http_status(:found)

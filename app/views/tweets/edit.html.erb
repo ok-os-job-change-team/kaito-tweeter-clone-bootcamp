@@ -1,28 +1,59 @@
-<h1>ツイート修正</h1>
+<section class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: calc(100vh - 128px);">
+  <div class="box" style="width: 600px;">
+    <!-- boxのタイトル -->
+    <div class="content">
+      <div class="block">
+        <h2>ひとりごと編集</h2>
+        <div class="has-background-grey-lighter" style="height: 2px;"></div>
+      </div>
+    </div>
 
-<%= form_with model: @tweet, url: tweet_path, local: true, data: { turbo: "false" } do |form| %>
-  <div>
-    <h3>
-      <%= flash[:alert] %> 
-    </h3>
-      <ul>
-      <% @tweet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+    <!-- ひとりごと編集フォーム -->
+    <%= form_with model: @tweet, url: tweet_path, data: { turbo: "false" } do |f| %>
+      <div class="field">
+        <label class="label">タイトル</label>
+        <div class="control">
+          <%= f.text_field :title, class: "input is-black", placeholder: "20字以内" %>
+        </div>
+      </div>
+      <div class="block">
+        <div class="field">
+          <label class="label">本文</label>
+          <div class="control">
+            <%= f.text_area :content, class: "textarea is-black", placeholder: "140字以内", rows: 4 %></td>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="control">
+          <%= f.submit '変更する', class: "button is-link is-fullwidth", style: "background-color: #6a994e" %>
+        </div>
+      </div>
+      <div class="block">
+        <%= link_to "キャンセル", :back, class: "button is-fullwidth has-text-white", style: "background-color: #bc4749" %>
+      </div>
+    <% end %>
+
+    <!-- ひとりごと削除ボタン -->
+    <div class="block pt-5">
+      <div class="has-background-grey-lighter" style="height: 2px;"></div>
+    </div>
+    <div class="block">
+      <%= button_to "ひとりごと削除", tweet_path(@tweet.id), method: :delete, class: "button is-fullwidth is-black" %>
+    </div>
+
+    <!-- フラッシュメッセージ -->
+    <div class="mt-5">
+      <div class="levlel">
+        <% if flash[:alert] %>
+          <div class="notification is-danger is-light has-text-centered">
+            <%= flash[:alert] %> 
+            <% @tweet.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <table>
-    <tr>
-      <th>タイトル</th>
-      <td><%= form.text_field :title %></td>
-    </tr>
-    <tr>
-      <th>ツイート</th>
-      <td><%= form.text_field :content %></td>
-    </tr>
-    <tr>
-      <td><%= form.submit '修正' %></td>
-    </tr>
-  </table>
-<% end %>
+</section>
