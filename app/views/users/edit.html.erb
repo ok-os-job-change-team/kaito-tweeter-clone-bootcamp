@@ -28,7 +28,7 @@
         <%= f.submit '変更する', class: "button is-fullwidth has-text-white", style: "background-color: #6a994e" %>
       </div>
       <div class="block">
-        <%= link_to "キャンセル", user_path(current_user.id), class: "button is-fullwidth has-text-white", style: "background-color: #bc4749" %>
+        <%= link_to "キャンセル", :back, class: "button is-fullwidth has-text-white", style: "background-color: #bc4749" %>
       </div>
     <% end %>
 
