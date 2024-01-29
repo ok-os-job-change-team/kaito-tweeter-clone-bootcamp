@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.bigint 'tweet_id', null: false
   end
 
-  add_foreign_key "tweets", "users"
-  add_foreign_key "favorites", "users"
-  add_foreign_key "favorites", "tweets"
+  add_foreign_key 'tweets', 'users'
+  add_foreign_key 'favorites', 'users'
+  add_foreign_key 'favorites', 'tweets'
 end
