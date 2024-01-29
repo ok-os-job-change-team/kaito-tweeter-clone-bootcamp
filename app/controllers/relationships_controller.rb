@@ -4,14 +4,30 @@ class RelationshipsController < ApplicationController
   # POST /users/:user_id/relationships
   def create
     follow = current_user.active_relationships.build(follower_id: params[:user_id])
-    follow.save
-    redirect_to users_path
+    if follow.save
+      flash[:notice] = 'フォローしました'
+      redirect_to users_path
+    else
+      flash.now[:alert] = 'フォローに失敗しました'
+      render users_path
+    end
   end
 
   # DELETE /users/:user_id/relationships
   def destroy
-    follow = current_user.active_relationships.find_by(follower_id: params[:user_id])
-    follow.destroy
-    redirect_to users_path
+    follow = current_user.active_relationships.find_by!(follower_id: params[:user_id])
+    # binding.pry
+    follow = current_user.active_relationships.find_by!(follower_id: 0)
+
+    if follow.destroy
+      flash[:notice] = 'フォロー解除しました'
+      redirect_to users_path
+    else
+      flash.now[:alert] = 'フォロー解除に失敗しました'
+      render users_path
+    end
+    rescue ActiveRecord::RecordNotFound
+      flash.now[:alert] = 'フォロー解除に失敗しました'
+      render users_path
   end
 end

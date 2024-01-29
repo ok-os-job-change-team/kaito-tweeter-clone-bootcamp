@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
 
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+
   private
+
+  def render_404
+    render template: 'errors/error_404', status: 404, layout: 'application'
+  end
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
