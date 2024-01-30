@@ -14,4 +14,4 @@ ja:
     errors:
       messages:
         blank: を入力してください
-        too_long: が長すぎます
+        too_long: "は%{count}字以内で入力してください"

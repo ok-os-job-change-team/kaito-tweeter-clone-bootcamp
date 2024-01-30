@@ -1,21 +1,24 @@
 RSpec.describe User do
   describe 'バリデーションのテスト' do
-    context 'nameが10文字以内の場合' do
-      let(:user) { build(:user, name: 'hoge_hoge_') }
+    context 'nameが15字以内の場合' do
+      let(:user) { build(:user, name: 'hoge_hoge_hoge_') }
 
-      it 'valid?がtrueになる' do
-        expect(user.valid?).to eq true
+      it 'valid?がtrueになり、errorsに何も格納されないこと' do
+        aggregate_failures do
+          expect(user.valid?).to eq true
+          expect(user.errors.full_messages).to eq []
+        end
       end
     end
 
-    context 'nameが10文字より長い場合' do
-      let(:user) { build(:user, name: 'hoge_hoge_h') }
+    context 'nameが15字より長い場合' do
+      let(:user) { build(:user, name: 'hoge_hoge_hoge_h') }
 
-      it 'valid?がfalseになり、errorsに「アカウント名が長すぎます」と格納される' do
+      it 'valid?がfalseになり、errorsに「アカウント名は15字以内で入力してください」と格納される' do
         aggregate_failures do
           result = user.valid?
           expect(result).to eq false
-          expect(user.errors.full_messages).to eq ['アカウント名が長すぎます']
+          expect(user.errors.full_messages).to eq ['アカウント名は15字以内で入力してください']
         end
       end
     end
