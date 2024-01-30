@@ -15,7 +15,8 @@ class RelationshipsController < ApplicationController
 
   # DELETE /users/:user_id/relationships
   def destroy
-    follow = current_user.active_relationships.find_by!(follower_id: params[:user_id])
+    follow = \
+      current_user.active_relationships.find_by!(follower_id: params[:user_id])
 
     if follow.destroy
       flash[:notice] = 'フォロー解除しました'
