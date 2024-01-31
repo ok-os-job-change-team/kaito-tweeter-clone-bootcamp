@@ -23,7 +23,7 @@
         <% if session[:user_id] %>
         <div class="navbar-item">
           <div class="tag is-medium has-text-weight-semibold px-5" style="background-color: #a7c957">
-            <p><%= current_user.email %>でログイン中</p>
+            <p><%= "#{current_user.name} でログイン中" %></p>
           </div>
           <p><%= button_to('ログアウト', logout_path, method: :delete, class: 'button is-light') %></p>
         </div>
