@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :check_logged_in, only: %i[index show]
+  before_action :check_logged_in, only: %i[index show follows followers]
   before_action -> { check_edit_authority(params[:id].to_i) }, only: %i[edit update destroy]
 
   # GET /users
@@ -61,12 +61,23 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/:id/follows
+  def follows
+    user = User.find(params[:id])
+    @users = user.followings
+  end
+
+  # GET /users/:id/followers
+  def followers
+    user = User.find(params[:id])
+    @users = user.followers
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
-    # require(:user)はuser内に指定の値が存在するかチェック
-    # permit(:email, :password)はemailとpasswordがあるかチェック
-    # 結果として、user内にあるemailとpasswordだけを取得
+    params.require(:user).permit(:name, :email, :password)
+    # require(:user)はリクエストパラメータの中から:userキーに関連付けられた値を取得
+    # permit(:name, :email, :password)は:name, :email, :passwordキーのみ許可
   end
 end
