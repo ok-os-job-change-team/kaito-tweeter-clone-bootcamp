@@ -44,7 +44,13 @@
               </div>
             </div>
             <div class="column is-2 ">
-              <%= button_to "フォローする",users_path, class: "button is-small is-outlined has-text-weight-semibold mt-1", style: "color: #6a994e; border-color: #6a994e;" %>
+              <% if current_user&.id != user.id %>
+                <% if user.followed_by?(current_user&.id) %>
+                  <%= button_to "フォロー中", user_relationships_path(user.id), method: :delete, class: "button is-small has-text-weight-semibold has-text-white mt-1", style: "background-color: #6a994e" %>
+                <% else %>
+                  <%= button_to "フォロー", user_relationships_path(user.id), method: :post, class: "button is-small is-outlined has-text-weight-semibold mt-1", style: "color: #6a994e; border-color: #6a994e" %>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
