@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @tweets = Tweet.eager_load(:user, :favorites).where(user: { id: params[:id] })
-  end  
+  end
 
   # GET /users/new
   def new
