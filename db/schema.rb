@@ -28,6 +28,13 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.bigint 'user_id', null: false
     t.bigint 'tweet_id', null: false
   end
+  create_table 'relationships', charset: 'utf8mb4', force: :cascade do |t|
+    t.bigint 'following_id', null: false
+    t.bigint 'follower_id', null: false
+  end
+
+  add_foreign_key 'relationships', 'users', column: 'following_id'
+  add_foreign_key 'relationships', 'users', column: 'follower_id'
 
   add_foreign_key 'tweets', 'users'
   add_foreign_key 'favorites', 'users'
