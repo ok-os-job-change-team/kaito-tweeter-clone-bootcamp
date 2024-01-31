@@ -1,6 +1,5 @@
-# Usersテーブル初期値
-User.create(email: 'kaito@example.com', password: 'hogehoge')
-User.create(email: 'shoichi@example.com', password: 'hohogege')
+User.create(name: 'かいと', email: 'kaito@example.com', password: 'hogehoge')
+User.create(name: 'しょーいち',email: 'shoichi@example.com', password: 'hohogege')
 
 # Tweetsテーブル初期値
 Tweet.create(user_id: 1, title: 'あいさつ', content: 'こんにちは')

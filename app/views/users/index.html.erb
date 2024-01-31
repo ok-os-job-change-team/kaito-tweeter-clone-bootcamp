@@ -36,7 +36,7 @@
             <div class="column is-10 pl-4">
               <div class="tags">
                 <span class="tag is-white is-size-6 has-text-weight-semibold" style="color: #386641">
-                  <p>user_name</p>
+                  <p><%= user.name %></p>
                 </span>
                 <span class="tag is-white is-size-6" style="color: #7d7d7d">
                   <%=link_to user.email, user_path(user.id), style: "color: #7d7d7d" %></p>
