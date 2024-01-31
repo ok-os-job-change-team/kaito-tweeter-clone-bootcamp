@@ -1,4 +1,4 @@
-<main class="columns p-1 m-0">
+<main class= "columns p-1 m-0">
   <!-- ユーザー情報 -->
   <div class="column is-two-fifths">
     <div class="box">
@@ -6,7 +6,7 @@
         <div class="media-content">
           <div class="tags are-large mb-2">
             <span class="tag is-white is-size-4 has-text-weight-semibold" style="color: #386641">
-              <p>user_name</p>
+              <p><%= @user.name %></p>
             </span>
             <span class="tag is-white is-size-5 has-text-weight-semibold" style="color: #7d7d7d">
               <p><%= @user.email %></p>
@@ -49,7 +49,7 @@
         <div class="media-content">
           <div class="tags are-medium mb-1">
             <span class="tag is-white is-size-5 has-text-weight-semibold" style="color: #386641">
-              <p>user_name</p>
+              <p><%= tweet.user.name %></p>
             </span>
             <span class="tag is-white is-size-6 has-text-weight-semibold" style="color: #7d7d7d">
               <p><%= tweet.user.email %></p>
