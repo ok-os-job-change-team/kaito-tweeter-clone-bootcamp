@@ -9,6 +9,13 @@
 
     <%= form_with model: @user, url: users_path, data: { turbo: "false" } do |f| %>
       <div class="field">
+        <label class="label">アカウント名</label>
+        <div class="control">
+          <%= f.text_field :name, class: "input is-black", placeholder: "15字以内" %>
+        </div>
+      </div>
+
+      <div class="field">
         <label class="label">メールアドレス</label>
         <div class="control">
           <%= f.email_field :email, class: "input is-black", placeholder: "sample@example.com" %>

@@ -12,20 +12,32 @@
 
 ActiveRecord::Schema[7.0].define(version: 0) do
   create_table 'users', charset: 'utf8mb4', force: :cascade do |t|
+    t.string 'name', null: false
     t.string 'email', null: false
     t.string 'password_digest', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
   create_table 'tweets', charset: 'utf8mb4', force: :cascade do |t|
-    t.integer 'user_id', null: false
+    t.bigint 'user_id', null: false
     t.string 'title', null: false, length: { maximum: 20 }
     t.string 'content', null: false, length: { maximum: 140 }
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
   create_table 'favorites', charset: 'utf8mb4', force: :cascade do |t|
-    t.integer 'user_id', null: false
-    t.integer 'tweet_id', null: false
+    t.bigint 'user_id', null: false
+    t.bigint 'tweet_id', null: false
   end
+  create_table 'relationships', charset: 'utf8mb4', force: :cascade do |t|
+    t.bigint 'following_id', null: false
+    t.bigint 'follower_id', null: false
+  end
+
+  add_foreign_key 'relationships', 'users', column: 'following_id'
+  add_foreign_key 'relationships', 'users', column: 'follower_id'
+
+  add_foreign_key 'tweets', 'users'
+  add_foreign_key 'favorites', 'users'
+  add_foreign_key 'favorites', 'tweets'
 end
