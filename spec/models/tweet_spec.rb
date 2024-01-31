@@ -4,8 +4,11 @@ RSpec.describe Tweet do
       let(:user) { create(:user) }
       let(:tweet) { build(:tweet, user_id: user.id) }
 
-      it 'valid?がtrueになる' do
-        expect(tweet.valid?).to eq true
+      it 'valid?がtrueになり、errorsに何も格納されないこと' do
+        aggregate_failures do
+          expect(tweet.valid?).to eq true
+          expect(user.errors.full_messages).to eq []
+        end
       end
     end
 
@@ -13,11 +16,11 @@ RSpec.describe Tweet do
       let(:user) { create(:user) }
       let(:tweet) { build(:tweet, content: Faker::Lorem.characters(number: 141), user_id: user.id) }
 
-      it 'valid?がfalseになり、errorsに「本文が長すぎます」と格納される' do
+      it 'valid?がfalseになり、errorsに「本文は140字以内で入力してください」と格納される' do
         aggregate_failures do
           result = tweet.valid?
           expect(result).to eq false
-          expect(tweet.errors.full_messages).to eq ['本文が長すぎます']
+          expect(tweet.errors.full_messages).to eq ['本文は140字以内で入力してください']
         end
       end
     end
@@ -52,11 +55,11 @@ RSpec.describe Tweet do
       let(:user) { create(:user) }
       let(:tweet) { build(:tweet, title: Faker::Lorem.characters(number: 21), user_id: user.id) }
 
-      it 'valid?がfalseになり、errorsに「タイトルが長すぎます」と格納される' do
+      it 'valid?がfalseになり、errorsに「タイトルは20字以内で入力してください」と格納される' do
         aggregate_failures do
           result = tweet.valid?
           expect(result).to eq false
-          expect(tweet.errors.full_messages).to eq ['タイトルが長すぎます']
+          expect(tweet.errors.full_messages).to eq ['タイトルは20字以内で入力してください']
         end
       end
     end
