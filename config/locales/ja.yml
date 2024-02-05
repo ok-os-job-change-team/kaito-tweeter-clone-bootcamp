@@ -7,7 +7,7 @@ ja:
         password: パスワード
       tweet:
         title: タイトル
-        content: ツイート
+        content: 本文
       favorite:
         user_id: ユーザーid
         tweet_id: ツイートid
