@@ -89,4 +89,6 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  # Github: https://github.com/faker-ruby/faker
+  gem 'faker'
 end
