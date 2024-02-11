@@ -44,7 +44,7 @@ $ docker-compose donw
 $ docker exec -it web_app bash
 ```
 ### ページを表示する
-コンテナを起動後、Webブラウザでログインページにアクセスする。[ログインページはこちら](http://localhost:3000/login)
+- コンテナを起動後、Webブラウザで`http://localhost:3000/users/1`にアクセスする。[ログインページはこちら](http://localhost:3000/login)
 
 ## 画面遷移図
 - figmaで画面遷移図を作成しました。
@@ -56,6 +56,9 @@ erDiagram
 Users ||--o{ Tweets:""
 Users ||--o{ Favorites:"" 
 Favorites }o--|| Tweets:""
+Users ||--o{ Relationships:""
+Relationships }o--|| Users:""
+
 Users {
   integer id
   string email
@@ -66,7 +69,8 @@ Users {
 Tweets {
   integer id
   integer user_id
-  string tweet_content
+  string title
+  string content
   string created_at
   string updated_at
 }
@@ -74,5 +78,10 @@ Favorites {
   integer id
   integer user_id
   integer tweet_id
+}
+Relationships{
+  integer id
+  integer following_id
+  integer follower_id
 }
 ```
