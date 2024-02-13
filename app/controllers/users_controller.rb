@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :check_logged_in, only: %i[index show follows followers]
+  before_action :check_logged_in, only: %i[index show follows followers favorites]
   before_action -> { check_edit_authority(params[:id].to_i) }, only: %i[edit update destroy]
 
   # GET /users
@@ -73,6 +73,18 @@ class UsersController < ApplicationController
     @users = user.followers
   end
 
+  # GET /users/:id/favorites
+  def favorites
+    @user = User.find(params[:id])
+    # @tweets = Tweet.eager_load(:user, :favorites).where(favorites: { user_id: params[:id] })
+    # @tweets = @user.favorites.map { _1.tweet }
+    # favorites = @user.favorites
+    # @tweets = Tweet.eager_load(:user, :favorites).where(favorites: favorites)
+    tweets = Tweet.eager_load(:user, :favorites)
+    @tweets = @user.favorites.map { _1.tweet }
+    # binding.pry
+  end
+  
   private
 
   def user_params
