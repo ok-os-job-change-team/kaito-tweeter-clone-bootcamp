@@ -75,15 +75,9 @@ class UsersController < ApplicationController
   # GET /users/:id/favorites
   def favorites
     @user = User.find(params[:id])
-    # @tweets = Tweet.eager_load(:user, :favorites).where(favorites: { user_id: params[:id] })
-    # @tweets = @user.favorites.map { _1.tweet }
-    # favorites = @user.favorites
-    # @tweets = Tweet.eager_load(:user, :favorites).where(favorites: favorites)
-    tweets = Tweet.eager_load(:user, :favorites)
-    @tweets = @user.favorites.map { _1.tweet }
-    # binding.pry
+    @tweets = Tweet.eager_load(:user, :favorites).where(favorites: { user_id: params[:id] })
   end
-  
+
   private
 
   def user_params

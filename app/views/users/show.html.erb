@@ -13,7 +13,7 @@
               <div class="level-item has-text-centered">
                 <div>
                   <p class="heading is-size-7">投稿</p>
-                  <p class="title is-size-5" ><%= @user.tweets.count %></p>
+                  <p class="title is-size-5" ><%= @user.tweets.size %></p>
                 </div>
               </div>
               <div class="level-item has-text-centered">
@@ -39,6 +39,7 @@
           <p>＜メニュー＞</p>
         </div>
         <ul class="menu-list">
+          <li><a href="<%= user_path(params[:id]) %>">投稿</a></li>
           <li><a href="<%= favorites_user_path(params[:id]) %>">いいね一覧</a></li>
           <li><a href="#">フォローリスト</a></li>
           <li><a href="#">フォロワーリスト</a></li>
