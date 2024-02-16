@@ -72,12 +72,6 @@ class UsersController < ApplicationController
     @users = user.followers
   end
 
-  # GET /users/:id/favorites
-  def favorites
-    @user = User.find(params[:id])
-    @tweets = Tweet.eager_load(:user, :favorites).where(favorites: { user_id: params[:id] })
-  end
-
   private
 
   def user_params
