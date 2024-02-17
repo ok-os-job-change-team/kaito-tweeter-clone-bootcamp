@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users, only: %i[index new create show destroy edit update] do
-    scope module: :favorite do
+    scope module: :users do
       resources :favorites, only: %i[index]
     end
 
