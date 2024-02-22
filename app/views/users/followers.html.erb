@@ -1,15 +1,48 @@
 <main class="columns p-1 m-0">
-  <!-- メニュー -->
+  <!-- ユーザー情報 -->
   <div class="column is-one-third">
+    <div class="box">
+      <article class="media">
+        <div class="media-content">
+          <div class="content pl-4">
+            <p class="content mb-0 is-size-4 has-text-weight-semibold" style="color: #386641"><%= @user.name %></p>           
+            <p class="content mb-0 is-size-6 has-text-weight-semibold" style="color: #7d7d7d"><%= @user.email %></p>
+          </div>
+          <div class="content">
+            <nav class="level">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading is-size-7">投稿</p>
+                  <p class="title is-size-5" ><%= @user.tweets.size %></p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading is-size-7">フォロー</p>
+                  <p class="title is-size-5">***</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading is-size-7">フォロワー</p>
+                  <p class="title is-size-5">***</p>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>  
+      </article>
+    </div>
     <div class="box">
       <aside class="menu">
         <div class="menu-label is-size-6 has-text-weight-semibold has-text-black">
-          <p>＜ユーザーメニュー＞</p>
+          <p>＜メニュー＞</p>
         </div>
         <ul class="menu-list">
-          <li><a href="<%= users_path() %>">ユーザーリスト</a></li>
-          <li><a href="<%= follows_user_path(current_user&.id) %>">フォローリスト</a></li>
-          <li><a href="<%= followers_user_path(current_user&.id) %>">フォロワーリスト</a></li>
+          <li><a href="<%= user_path(params[:id]) %>">投稿</a></li>
+          <li><a href="<%= user_favorites_path(params[:id]) %>">いいね一覧</a></li>
+          <li><a href="<%= follows_user_path(params[:id]) %>">フォローリスト</a></li>
+          <li><a href="<%= followers_user_path(params[:id]) %>">フォロワーリスト</a></li>
         </ul>
       </aside>
     </div>

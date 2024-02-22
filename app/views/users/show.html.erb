@@ -41,8 +41,8 @@
         <ul class="menu-list">
           <li><a href="<%= user_path(params[:id]) %>">投稿</a></li>
           <li><a href="<%= user_favorites_path(params[:id]) %>">いいね一覧</a></li>
-          <li><a href="#">フォローリスト</a></li>
-          <li><a href="#">フォロワーリスト</a></li>
+          <li><a href="<%= follows_user_path(params[:id]) %>">フォローリスト</a></li>
+          <li><a href="<%= followers_user_path(params[:id]) %>">フォロワーリスト</a></li>
         </ul>
       </aside>
     </div>
