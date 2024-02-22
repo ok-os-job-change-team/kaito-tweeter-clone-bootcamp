@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   resources :users, only: %i[index new create show destroy edit update] do
+    scope module: :users do
+      resources :favorites, only: %i[index]
+    end
+
     resource :relationships, only: %i[create destroy]
     get :follows, on: :member
     get :followers, on: :member
