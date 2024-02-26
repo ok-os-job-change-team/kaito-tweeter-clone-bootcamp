@@ -19,13 +19,13 @@
               <div class="level-item has-text-centered">
                 <div>
                   <p class="heading is-size-7">フォロー</p>
-                  <p class="title is-size-5">***</p>
+                  <p class="title is-size-5" ><%= @user.followings.size %></p>
                 </div>
               </div>
               <div class="level-item has-text-centered">
                 <div>
                   <p class="heading is-size-7">フォロワー</p>
-                  <p class="title is-size-5">***</p>
+                  <p class="title is-size-5" ><%= @user.followers.size %></p>
                 </div>
               </div>
             </nav>
@@ -62,7 +62,7 @@
         <h4>フォロワーリスト</h4>
         <div class="has-background-grey-lighter" style="height: 2px;"></div>
       </div>
-      <% @users.each do |user| %>
+      <% @follower_users.each do |user| %>
       <article class="media m-1 p-0">
         <div class="media-content">
           <div class="columns">
