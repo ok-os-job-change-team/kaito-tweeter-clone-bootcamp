@@ -29,6 +29,9 @@ jobs:         # ワークフローで実行されるジョブを設定
       - name: DB migrate              # DBマイグレーション
         run: |
           docker compose run app bundle exec ridgepole --config config/database.yml --file db/Schemafile --apply
+
+      - name: DB seed
+        run: |
           docker compose run app bundle exec rails db:seed
 
       - name: Run Rubocop              # Rubocop実行
