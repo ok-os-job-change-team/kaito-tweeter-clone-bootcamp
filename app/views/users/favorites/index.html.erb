@@ -39,8 +39,8 @@
           <p>＜メニュー＞</p>
         </div>
         <ul class="menu-list">
-          <li><a href="<%= user_path(params[:id]) %>">投稿</a></li>
-          <li><a href="<%= user_favorites_path(params[:id]) %>">いいね一覧</a></li>
+          <li><a href="<%= user_path(params[:user_id]) %>">投稿</a></li>
+          <li><a href="<%= user_favorites_path(params[:user_id]) %>">いいね一覧</a></li>
           <li><a href="#">フォローリスト</a></li>
           <li><a href="#">フォロワーリスト</a></li>
         </ul>
@@ -58,7 +58,7 @@
   <div class="column">
     <div class="box">
       <div class="content m-0 pl-4">
-        <h4>投稿</h4>
+        <h4>いいね一覧</h4>
         <div class="has-background-grey-lighter" style="height: 2px;"></div>
       </div>
       <% @tweets.each do |tweet| %>
