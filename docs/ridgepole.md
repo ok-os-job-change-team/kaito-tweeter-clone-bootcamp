@@ -11,7 +11,7 @@
 $ ridgepole --config config/database.yml --file db/Schemafile --apply
 
 # rakeで短縮したやつ
-$ bundle exec rake ridgepole:export
+$ bundle exec rake ridgepole:apply
 ```
 - `--file db/Schemafile`で参照するSchemafileを指定している（デフォルトではプロジェクトのルートパスからSchemafileを探す）
 - `--apply`でSchemafileと実際のDBを比較して反映させる
