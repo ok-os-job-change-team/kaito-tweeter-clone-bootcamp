@@ -4,10 +4,14 @@
 - デフォルトのRailsでは変更のたびにmigrationファイルを増やす必要があるが、Ridgepoleを使うと"スキーマファイル"を編集することでDBスキーマを更新することができる
 
 ## 使い方
-- SchemafileにDBのスキーマを書く
+- `Schemafile`に記述されたスキーマの定義をDBに適用する
 - 以下のコマンドを実行する
 ```
+# 通常
 $ ridgepole --config config/database.yml --file db/Schemafile --apply
+
+# rakeで短縮したやつ
+$ bundle exec rake ridgepole:export
 ```
 - `--file db/Schemafile`で参照するSchemafileを指定している（デフォルトではプロジェクトのルートパスからSchemafileを探す）
 - `--apply`でSchemafileと実際のDBを比較して反映させる
