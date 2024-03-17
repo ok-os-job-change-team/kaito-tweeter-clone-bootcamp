@@ -12,6 +12,11 @@ Rails.application.routes.draw do
     resource :favorites, only: %i[create destroy]
   end
 
+  namespace :admin do
+    resources :users, only: [:index, :destroy]
+    resources :tweets, only: [:index, :destroy]
+  end
+
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
