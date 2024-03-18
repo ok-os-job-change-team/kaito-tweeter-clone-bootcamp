@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users, only: [:index, :destroy]
-    resources :tweets, only: [:index, :destroy]
+    resources :users, only: %i[index destroy]
+    resources :tweets, only: %i[index destroy]
   end
 
   get    '/login',   to: 'sessions#new'
