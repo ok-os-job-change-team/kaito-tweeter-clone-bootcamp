@@ -12,21 +12,25 @@ services:
       - "3000:3000"
     tty: true
     stdin_open: true
-    depends_on:
-      - database
+  # =========AWSではRDSを使うため===========
+    # depends_on:
+    #   - database
+  # =====================================
     working_dir: /app
     command: /bin/sh -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
-  database:
-    image: mysql:8.0.34
-    platform: linux/amd64
-    container_name: database
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    ports:
-      - "3308:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: demo
-      TZ: "Asia/Tokyo"
-    volumes:
-      - ./mysql-data:/var/lib/mysql
-      - ./sql:/usr/scripts
+  # =========AWSではRDSを使うため===========
+  # database:
+  #   image: mysql:8.0.34
+  #   platform: linux/amd64
+  #   container_name: database
+  #   command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  #   ports:
+  #     - "3308:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: demo
+  #     TZ: "Asia/Tokyo"
+  #   volumes:
+  #     - ./mysql-data:/var/lib/mysql
+  #     - ./sql:/usr/scripts
+  # =====================================
