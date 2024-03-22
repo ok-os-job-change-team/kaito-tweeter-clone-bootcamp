@@ -4,21 +4,23 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/rails/Dockerfile
     container_name: web_app
+    command: bundle exec unicorn -p 3000 -c /app/config/unicorn.rb
+    # unicornを使わない場合は以下を実行する
+    # command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
+      - /var/tmp
       - .:/app
+
     ports:
       - "3000:3000"
     tty: true
     stdin_open: true
-  # =========AWSではRDSを使うため===========
+  # =========AWSではRDSを使うためコメントアウト===========
     # depends_on:
     #   - database
-  # =====================================
-    working_dir: /app
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
-  # =========AWSではRDSを使うため===========
+  
   # database:
   #   image: mysql:8.0.34
   #   platform: linux/amd64
@@ -34,3 +36,12 @@ services:
   #     - ./mysql-data:/var/lib/mysql
   #     - ./sql:/usr/scripts
   # =====================================
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - '80:80'
+    volumes_from:
+      - app
