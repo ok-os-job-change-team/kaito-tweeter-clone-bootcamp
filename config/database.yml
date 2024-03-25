@@ -7,9 +7,16 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['DB_HOST'] %>
+  # ==================================
+  # dbコンテナの場合
+  username: root
+  password: tubuyaki
+  host: mysql
+  # RDSの場合
+  # username: <%= ENV['DB_USERNAME'] %>
+  # password: <%= ENV['DB_PASSWORD'] %>
+  # host: <%= ENV['DB_HOST'] %>
+  # ==================================
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 

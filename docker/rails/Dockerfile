@@ -9,7 +9,7 @@ RUN mkdir /app
 WORKDIR /app
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle install -j2
+RUN bundle install
 ADD . /app
 
 EXPOSE 3000
