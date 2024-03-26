@@ -33,8 +33,8 @@ services:
       - ./mysql-data:/var/lib/mysql
       - ./sql:/usr/scripts
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo
   # =====================================
 
   nginx:
