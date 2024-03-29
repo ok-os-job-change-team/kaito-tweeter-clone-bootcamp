@@ -9,7 +9,7 @@ services:
     # unicornを使わない場合は以下を実行
     # command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      # UnicornのUNIXソケットをnginxコンテナと共有
+      # UNIXドメインソケットをnginxコンテナと共有
       - shared_socket:/var/tmp
       - .:/app
     tty: true
@@ -41,11 +41,14 @@ services:
     ports:
       - '80:80'
     volumes:
-      # UnicornのUNIXソケットをappコンテナと共有
+      # UNIXドメインソケットをappコンテナと共有
       - shared_socket:/var/tmp
+      # 静的なhtmlファイルをnginxコンテナにコピー
       - ./public:/var/www/html/public
+      # nginxの設定ファイルをnginxコンテナにコピー
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
 
 volumes:
+    # コンテナ間で共有する名前付きvolume
     shared_socket:
     mysql-data:
