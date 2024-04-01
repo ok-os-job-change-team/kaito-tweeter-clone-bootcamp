@@ -2,8 +2,6 @@
 
 ## 概要
 - "Hitorigoto"は簡易的なツイッターアプリです。
-### ユーザーページ
-![ユーザーページ](https://github.com/ok-os-job-change-team/kaito-twitter-clone-bootcamp/assets/90958196/81cf1c4b-5736-47fc-8219-6896fcd90214)
 
 ### 主な機能
 - ユーザー登録とログイン
@@ -16,6 +14,9 @@
 	- ユーザーは他のユーザーが投稿したひとりごとにいいねを付けることができます。
 - フォロー/フォロワー機能
 	- ユーザーは他のユーザーをフォローすることができます。
+
+### demo動画
+![demo動画_230229](https://github.com/ok-os-job-change-team/kaito-twitter-clone-bootcamp/assets/90958196/6468e15b-1e46-4961-a419-f4ea7e8778c1)
 
 ## 使用技術
 | カテゴリー | 技術 |
