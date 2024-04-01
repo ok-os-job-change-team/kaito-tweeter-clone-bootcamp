@@ -15,12 +15,12 @@ class User < ApplicationRecord
   # フォローする側のUserからみたRelationshipをactive_relationshipとする
   has_many :active_relationships, class_name: 'Relationship', foreign_key: :following_id, dependent: :destroy
   # 中間テーブルを介してUser(フォローされた側)を集めることを「followings」と定義
-  has_many :followings, through: :active_relationships, source: :follower, dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :follower
 
   # フォローされる側のUserからみたRelationshipをpassive_relationshipとする
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: :follower_id, dependent: :destroy
   # 中間テーブルを介してUser(フォローする側)を集めることを「followers」と定義
-  has_many :followers, through: :passive_relationships, source: :following, dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :following
 
   def followed_by?(target_user_id)
     # フォローしようとしているユーザー(レシーバー)がフォローされているユーザー(つまりpassive)の中から、引数に渡されたユーザー(自分)がいるかどうかを調べる
