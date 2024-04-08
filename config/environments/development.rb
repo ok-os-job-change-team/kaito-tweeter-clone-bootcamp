@@ -70,4 +70,5 @@ Rails.application.configure do
 
   # 接続先として許可する Host を追加する
   config.hosts << "unicorn"
+  config.hosts << "hitorigoto-app.com"
 end
