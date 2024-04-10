@@ -17,5 +17,5 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   get '*path', controller: 'application', action: 'render_404'
-  root to: to: 'sessions#new'
+  root to: 'sessions#new'
 end
