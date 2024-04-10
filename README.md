@@ -1,7 +1,7 @@
 # Hitorigoto
 
 ## 概要
-- "Hitorigoto"は簡易的なツイッターアプリです。
+- "Hitorigoto"は簡易的なSNSアプリです。
 
 ### 主な機能
 - ユーザー登録とログイン
@@ -18,6 +18,13 @@
 ### demo動画
 ![demo動画_230229](https://github.com/ok-os-job-change-team/kaito-twitter-clone-bootcamp/assets/90958196/6468e15b-1e46-4961-a419-f4ea7e8778c1)
 
+### アプリのURL
+- http://hitorigoto-app.com
+- ゲストユーザー用のメールアドレスとパスワードでログイン可能です。
+  - メールアドレス: guest_user@example.com
+  - パスワード: guest_pass
+- アカウントを登録することもできますが、メールアドレスは架空のものを登録するようお願いします。(例：`hoge@example.com`)
+
 ## 使用技術
 | カテゴリー | 技術 |
 |----------|----------|
@@ -28,24 +35,37 @@
 | CI/CD  | GitHub Actions |
 | その他  | Git, GitHub, RSpec, Rubocop |
 
-## 環境構築
-### コマンド一覧
-```bash
-# イメージをbuildする
+## Dockerを使った環境構築
+### 環境構築手順
+1. リポジトリをクローンする
+```
+$ git clone https://github.com/ok-os-job-change-team/kaito-twitter-clone-bootcamp.git
+```
+2. リポジトリに移動する
+```
+$ cd kaito-twitter-clone-bootcamp
+```
+3. イメージをビルドする
+```
 $ docker-compose build
-
-# コンテナを起動する
+```
+4. コンテナを起動する
+```
 $ docker-compose up -d
-
-# コンテナを停止し、作成したコンテナとネットワークを削除する
-$ docker-compose donw
-
-# コンテナ内に入る(実行中のコンテナ内でコマンドを実行する)
-# Reference: https://docs.docker.jp/engine/reference/commandline/compose_exec.html
-$ docker exec -it web_app bash
 ```
 ### ページを表示する
-- コンテナを起動後、Webブラウザで`http://localhost:3000/users/1`にアクセスする。[ログインページはこちら](http://localhost:3000/login)
+- コンテナを起動後、Webブラウザで`http://localhost:3000/login`にアクセスする。
+
+### その他のコマンド
+- コンテナを停止し、作成したコンテナとネットワークを削除する
+```
+$ docker-compose donw
+```
+
+- コンテナ内に入る(実行中のコンテナ内でコマンドを実行する)
+```
+$ docker exec -it web_app bash
+```
 
 ## 画面遷移図
 - figmaで画面遷移図を作成しました。
@@ -86,3 +106,6 @@ Relationships{
   integer follower_id
 }
 ```
+
+## システム構成図
+![aws_アーキテクチャ図_0409](https://github.com/ok-os-job-change-team/kaito-twitter-clone-bootcamp/assets/90958196/268727f5-318a-4118-8442-a13d300a6189)
