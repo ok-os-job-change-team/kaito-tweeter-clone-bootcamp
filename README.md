@@ -1,7 +1,15 @@
 # Hitorigoto
 
 ## 概要
-- "Hitorigoto"は簡易的なツイッターアプリです。
+Hitorigotoは簡易的なSNSアプリです。
+
+### アプリのURL
+- https://hitorigoto-app.com
+- ゲストユーザー用のメールアドレスとパスワードでログイン可能です。
+  - メールアドレス: `guest_user@example.com`
+  - パスワード: `guest_pass`
+- アカウントを作成することもできますが、メールアドレスは**架空のもの**を登録してください。
+- AWS周りは開発途中です。デプロイ作業中の場合、一時的にアクセスできない場合があります。
 
 ### 主な機能
 - ユーザー登録とログイン
@@ -18,37 +26,60 @@
 ### demo動画
 ![demo動画_230229](https://github.com/ok-os-job-change-team/kaito-twitter-clone-bootcamp/assets/90958196/6468e15b-1e46-4961-a419-f4ea7e8778c1)
 
+## アプリを開発したきっかけ
+実際に使われている技術を使いながらWebアプリ開発について体系的に学び、知識とスキルを身につけることを目標に、Ruby on Railsを利用して基本的なCRUD機能を持つアプリを開発しました。
+
+## 開発にあたり工夫した点
+- 開発環境にDockerを使用して、実際の開発現場で利用される技術を身につける。
+- Rubocopを導入してコードの品質を維持し、一貫したコーディングスタイルを確保する。
+- RSpecを使用してテストを書くことで、テスト駆動開発を意識して開発する。
+- GitHub Actionsを導入してCIを組むことで、開発の効率化とコードの品質を維持する。
+- パフォーマンスを意識して、N+1問題の解消に取り組む。
+
 ## 使用技術
 | カテゴリー | 技術 |
 |----------|----------|
 | バックエンド  | Ruby 3.2.2, Ruby on Rails 7.0.7.2 |
 | フロントエンド  | HTML, CSS,  JavaScript, Bulma |
 | データベース  | mysql 8.0.34 |
-| インフラ(開発環境)  | Docker |
+| インフラ | Docker, Nginx, Unicorn, AWS(EC2, RDS, ALB, Route53) |
 | CI/CD  | GitHub Actions |
 | その他  | Git, GitHub, RSpec, Rubocop |
 
-## 環境構築
-### コマンド一覧
-```bash
-# イメージをbuildする
+## Dockerを使った環境構築
+### 環境構築手順
+1. リポジトリをクローンする
+```
+$ git clone https://github.com/ok-os-job-change-team/kaito-twitter-clone-bootcamp.git
+```
+2. リポジトリに移動する
+```
+$ cd kaito-twitter-clone-bootcamp
+```
+3. イメージをビルドする
+```
 $ docker-compose build
-
-# コンテナを起動する
+```
+4. コンテナを起動する
+```
 $ docker-compose up -d
-
-# コンテナを停止し、作成したコンテナとネットワークを削除する
-$ docker-compose donw
-
-# コンテナ内に入る(実行中のコンテナ内でコマンドを実行する)
-# Reference: https://docs.docker.jp/engine/reference/commandline/compose_exec.html
-$ docker exec -it web_app bash
 ```
 ### ページを表示する
-- コンテナを起動後、Webブラウザで`http://localhost:3000/users/1`にアクセスする。[ログインページはこちら](http://localhost:3000/login)
+- コンテナを起動後、Webブラウザで`http://localhost:3000/login`にアクセスする。
+
+### その他のコマンド
+- コンテナを停止し、作成したコンテナとネットワークを削除する
+```
+$ docker-compose donw
+```
+
+- コンテナ内に入る(実行中のコンテナ内でコマンドを実行する)
+```
+$ docker exec -it web_app bash
+```
 
 ## 画面遷移図
-- figmaで画面遷移図を作成しました。
+Figmaで画面遷移図を作成しました。
 [画面遷移図はこちら](https://www.figma.com/file/hd6yLAUfRUJvzbM5cvUcdr/Tubuyaki?type=design&node-id=0-1&mode=design&t=NX5r90lopdH1wt2k-0)
 
 ## ER図
@@ -86,3 +117,6 @@ Relationships{
   integer follower_id
 }
 ```
+
+## システム構成図
+![システム構成図_0410](https://github.com/ok-os-job-change-team/kaito-twitter-clone-bootcamp/assets/90958196/9c9006fd-9c97-4048-967b-d46fd6d4de37)
