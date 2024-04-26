@@ -1,32 +1,54 @@
-version: '3.7'
-
 services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/rails/Dockerfile
     container_name: web_app
+    # unicornを使う場合は以下を実行
+    command: bundle exec unicorn -p 3000 -c ./config/unicorn.rb
+    # unicornを使わない場合は以下を実行
+    # command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
+      # UNIXドメインソケットをnginxコンテナと共有
+      - shared_socket:/var/tmp
       - .:/app
-    ports:
-      - "3000:3000"
     tty: true
     stdin_open: true
+  # ====RDSを使う場合は以下をコメントアウト====
     depends_on:
-      - database
-    working_dir: /app
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
-  database:
-    image: mysql:8.0.34
-    platform: linux/amd64
-    container_name: database
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      - db
+  
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    container_name: mysql
     ports:
-      - "3308:3306"
+      - '3308:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./sql:/usr/scripts
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: demo
-      TZ: "Asia/Tokyo"
+  # =====================================
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: nginx
+    ports:
+      - '80:80'
     volumes:
-      - ./mysql-data:/var/lib/mysql
-      - ./sql:/usr/scripts
+      # UNIXドメインソケットをappコンテナと共有
+      - shared_socket:/var/tmp
+      # 静的なhtmlファイルをnginxコンテナにコピー
+      - ./public:/var/www/html/public
+      # nginxの設定ファイルをnginxコンテナにコピー
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+
+volumes:
+    # コンテナ間で共有する名前付きvolume
+    shared_socket:
+    mysql-data:
