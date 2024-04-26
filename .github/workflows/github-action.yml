@@ -22,7 +22,7 @@ jobs:         # ワークフローで実行されるジョブを設定
 
       - name: DB create               # DB作成                                
         run: |                        # MySQLコンテナが応答できるまで10秒スリープ
-          docker compose up -d database
+          docker compose up -d db
           sleep 10
           docker compose run app bundle exec rails db:create
       
