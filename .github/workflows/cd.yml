@@ -39,7 +39,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-1
+        aws-region: ${{ secrets.AWS_REGION }}
 
     # デプロイする
     - name: Deploy
@@ -49,9 +49,12 @@ jobs:
         aws ec2 authorize-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
         # SSH接続して、git pullする
-        echo "${{ secrets.PRIVATE_KEY }}" > private_key
+        echo "${{ secrets.EC2_PRIVATE_KEY }}" > private_key
         chmod 600 private_key
-        ssh -v -oStrictHostKeyChecking=no ec2-user@3.114.158.47 -i private_key "cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy"
+        # ssh -v -oStrictHostKeyChecking=no -i private_key ec2-user@3.114.158.47
+        ssh -v -oStrictHostKeyChecking=no -i private_key ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }}
+        cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy
+        # ssh -v -oStrictHostKeyChecking=no ec2-user@3.114.158.47 -i private_key "cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy"
         # ssh -v -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy"
         # ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} -i private_key "cd kaito-twitter-clone-bootcamp && git fetch --prune && git checkout main && git pull origin main"
 
