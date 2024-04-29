@@ -58,10 +58,10 @@ jobs:
         ssh -oStrictHostKeyChecking=no -i private_key ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }}
 
         # デバッグ
-        ls
+        git fetch --prune
 
         # gitコマンド
-        cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy
+        # cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy
 
         # SSHのセキュリティグループを閉じる
         aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
