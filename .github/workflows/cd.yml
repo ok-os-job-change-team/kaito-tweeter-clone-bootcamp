@@ -57,6 +57,9 @@ jobs:
         # SSH接続
         ssh -oStrictHostKeyChecking=no -i private_key ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }}
 
+        # デバッグ
+        ls
+
         # gitコマンド
         cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy
 
