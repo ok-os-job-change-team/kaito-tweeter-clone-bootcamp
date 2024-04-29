@@ -2,10 +2,8 @@ name: Rubocop and RSpec CI # ワークフローの名前
 
 on:           # ワークフローが動作するタイミング
   pull_request:
-    # 現状、パスの指定はなし
-    # paths:
-    #   - ".github/workflows/rspec.yml"
-    #   - "hoge/**"
+    branches: [ main ]
+    types: [closed]
 
 jobs:         # ワークフローで実行されるジョブを設定
   rubocop_and_rspec:
