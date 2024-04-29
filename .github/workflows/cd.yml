@@ -51,8 +51,8 @@ jobs:
         # SSH接続して、git pullする
         echo "${{ secrets.PRIVATE_KEY }}" > private_key
         chmod 600 private_key
-        ssh -v -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy
-        # ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} -i private_key "cd kaito-twitter-clone-bootcamp && git fetch --prune && git checkout main && git pull origin main
+        ssh -v -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd kaito-twitter-clone-bootcamp && git fetch --prune && git pull origin setup-ec2-auto-deploy"
+        # ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} -i private_key "cd kaito-twitter-clone-bootcamp && git fetch --prune && git checkout main && git pull origin main"
 
         # SSHのセキュリティグループを閉じる
         aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
